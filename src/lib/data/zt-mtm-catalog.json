@@ -1,0 +1,1912 @@
+{
+  "model": {
+    "name": "Zero Trust Maturity and Transformation Model",
+    "abbrev": "ZT-MTM",
+    "version": "1.0",
+    "sourceLanguage": "de"
+  },
+  "maturityLevels": [
+    {
+      "value": 0,
+      "label": "inexistent",
+      "description": "Die Fähigkeit ist nicht umgesetzt oder nicht nachweisbar vorhanden."
+    },
+    {
+      "value": 1,
+      "label": "rudimentär",
+      "description": "Die Fähigkeit besteht punktuell, manuell oder uneinheitlich."
+    },
+    {
+      "value": 2,
+      "label": "grundlegend",
+      "description": "Die Fähigkeit ist definiert und teilweise standardisiert umgesetzt."
+    },
+    {
+      "value": 3,
+      "label": "fortgeschritten",
+      "description": "Die Fähigkeit ist breit umgesetzt, integriert und regelmässig gesteuert."
+    },
+    {
+      "value": 4,
+      "label": "optimiert",
+      "description": "Die Fähigkeit wird kontinuierlich verbessert und, sofern sinnvoll, automatisiert oder dynamisch gesteuert."
+    },
+    {
+      "value": "N/A",
+      "label": "nicht anwendbar",
+      "description": "Ein Kriterium ist fachlich nicht anwendbar."
+    }
+  ],
+  "scopes": [
+    {
+      "id": "organisation",
+      "label": "Organisation"
+    },
+    {
+      "id": "service_app",
+      "label": "Service / Applikation"
+    },
+    {
+      "id": "kunde_mandant",
+      "label": "Kunde / Mandant"
+    }
+  ],
+  "areas": [
+    {
+      "id": "identity",
+      "label": "Identität und Zugriff",
+      "order": 1,
+      "criteriaCount": 7
+    },
+    {
+      "id": "devices",
+      "label": "Geräte und Endpunkte",
+      "order": 2,
+      "criteriaCount": 3
+    },
+    {
+      "id": "network",
+      "label": "Netzwerk und Segmentierung",
+      "order": 3,
+      "criteriaCount": 8
+    },
+    {
+      "id": "applications",
+      "label": "Anwendungen und Workloads",
+      "order": 4,
+      "criteriaCount": 8
+    },
+    {
+      "id": "data",
+      "label": "Daten und Datenschutz",
+      "order": 5,
+      "criteriaCount": 10
+    },
+    {
+      "id": "secops",
+      "label": "Security Operations und Resilienz",
+      "order": 6,
+      "criteriaCount": 7
+    },
+    {
+      "id": "governance",
+      "label": "Governance und Steuerung",
+      "order": 7,
+      "criteriaCount": 14
+    },
+    {
+      "id": "supplychain",
+      "label": "Supply Chain und Drittparteien",
+      "order": 8,
+      "criteriaCount": 3
+    }
+  ],
+  "criteria": [
+    {
+      "id": "K1-01",
+      "areaId": "identity",
+      "question": "Werden Identitäten zentral verwaltet und über geeignete Identity Stores, SSO oder Föderationsmechanismen für interne und externe Zugriffe bereitgestellt?",
+      "weight": 3,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Identitätsbereitstellung ist über Anwendungen, Umgebungen und Partner durchgängig integriert. Provisionierung, Deprovisionierung, SSO und Föderation sind weitgehend automatisiert. Identitätsquellen, Synchronisation und Ausnahmen werden kontinuierlich überwacht.",
+      "levelDescriptions": {
+        "0": "Identitäten werden nicht zentral über ein IAM, einen Identity Store oder einen Identity Provider verwaltet. Benutzerkonten bestehen verteilt in Anwendungen, Verzeichnissen oder lokalen Systemen. SSO oder Föderation sind nicht nachweisbar vorhanden.",
+        "1": "Einzelne Identity Stores oder Identity Provider bestehen, zum Beispiel Active Directory, Entra ID, LDAP oder lokale Verzeichnisse. SSO oder Föderation werden punktuell und uneinheitlich genutzt. Die Bereitstellung von Identitäten erfolgt überwiegend manuell.",
+        "2": "Ein zentrales IAM oder zentrale Identity Stores sind für wesentliche Benutzergruppen definiert. SSO ist für zentrale Anwendungen teilweise umgesetzt. Externe Identitäten, Gäste oder Partner werden teilweise integriert.",
+        "3": "Interne und externe Identitäten sind breit über zentrale IAM- oder Identity-Provider-Strukturen integriert. SSO und Föderation, z.B. über SAML oder OpenID Connect, sind mehrheitlich umgesetzt. Verantwortlichkeiten und Identitätsprozesse werden regelmässig überprüft.",
+        "4": "Identitätsbereitstellung ist über Anwendungen, Umgebungen und Partner durchgängig integriert. Provisionierung, Deprovisionierung, SSO und Föderation sind weitgehend automatisiert. Identitätsquellen, Synchronisation und Ausnahmen werden kontinuierlich überwacht."
+      },
+      "implementationBarriers": "Heterogene Identity Stores, uneinheitliche Zuständigkeiten und historisch gewachsene Identitätsquellen erschweren eine zentrale Identitätsverwaltung.",
+      "barrierReduction": "Identity Stores, SSO und Föderation schrittweise und priorisiert einführen. Kritische Benutzergruppen, externe Identitäten und zentrale Anwendungen zuerst anbinden.",
+      "recommendationsByTargetLevel": {
+        "1": "Zentrale Identitätsquellen erfassen, Verantwortlichkeiten klären und priorisierte Benutzergruppen über IAM, Identity Store oder Identity Provider anbinden.",
+        "2": "Zentrale Identity Stores und SSO für wesentliche Benutzergruppen definieren. Externe Identitäten und priorisierte Anwendungen schrittweise integrieren.",
+        "3": "Interne und externe Identitäten breit über IAM- und Identity-Provider-Strukturen anbinden. SSO, Föderation und Verantwortlichkeiten regelmässig überprüfen.",
+        "4": "Provisionierung, Deprovisionierung, SSO und Föderation weitgehend automatisieren. Identitätsquellen, Synchronisationen und Ausnahmen kontinuierlich überwachen."
+      }
+    },
+    {
+      "id": "K1-02",
+      "areaId": "identity",
+      "question": "Werden Rollen und Berechtigungen nach dem Least-Privilege-Prinzip über einen definierten Antrags- und Bewilligungsprozess vergeben?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app",
+        "kunde_mandant"
+      ],
+      "explanation": "Rollenmodelle und Bewilligungsprozesse sind breit etabliert. Berechtigungen werden nachvollziehbar vergeben und regelmässig kontrolliert.",
+      "levelDescriptions": {
+        "0": "Rollen und Berechtigungen werden nicht nach Least Privilege vergeben. Ein definierter Antrags- und Bewilligungsprozess fehlt.",
+        "1": "Berechtigungen werden fallweise vergeben. Anträge und Bewilligungen erfolgen manuell, uneinheitlich oder ohne vollständige Nachvollziehbarkeit.",
+        "2": "Ein Antrags- und Bewilligungsprozess ist definiert. Least Privilege wird für zentrale Rollen und Anwendungen teilweise umgesetzt.",
+        "3": "Rollenmodelle und Bewilligungsprozesse sind breit etabliert. Berechtigungen werden nachvollziehbar vergeben und regelmässig kontrolliert.",
+        "4": "Berechtigungsvergabe ist weitgehend automatisiert, attribut- oder risikobasiert gesteuert und kontinuierlich optimiert."
+      },
+      "implementationBarriers": "Rollenowner, Verantwortlichkeiten und Freigabeprozesse sind nicht klar definiert. Dadurch bleiben Least-Privilege-Rollen zu grob oder nicht nachvollziehbar.",
+      "barrierReduction": "Rollenowner festlegen, Freigabe- und Änderungsprozesse definieren und Berechtigungen schrittweise nach kritischen Rollen bereinigen.",
+      "recommendationsByTargetLevel": {
+        "1": "Rollenowner, Verantwortlichkeiten und Mindestvorgaben für kritische Berechtigungen festlegen. Erste Antrags- und Bewilligungsprozesse für priorisierte Rollen einführen.",
+        "2": "Ein Rollenmodell und einen verbindlichen Bewilligungsprozess für zentrale Anwendungen definieren. Berechtigungen nach Least Privilege bereinigen.",
+        "3": "Rollen, Anträge und Bewilligungen breit in IAM- und Betriebsprozesse integrieren. Rollenänderungen regelmässig überprüfen und nachführen.",
+        "4": "Berechtigungsvergabe soweit sinnvoll automatisieren und attribut- oder risikobasiert unterstützen. Ausnahmen und Sonderberechtigungen kontinuierlich kontrollieren."
+      }
+    },
+    {
+      "id": "K1-03",
+      "areaId": "identity",
+      "question": "Werden Rollen und Berechtigungen regelmässig oder kontinuierlich überprüft, angepasst und bei fehlendem Bedarf entzogen?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app",
+        "kunde_mandant"
+      ],
+      "explanation": "Berechtigungen werden nicht regelmässig überprüft. Nicht mehr benötigte Zugriffe bleiben bestehen.",
+      "levelDescriptions": {
+        "0": "Berechtigungen werden nicht regelmässig überprüft. Nicht mehr benötigte Zugriffe bleiben bestehen.",
+        "1": "Access Reviews erfolgen punktuell oder anlassbezogen. Anpassungen und Entzüge sind manuell und uneinheitlich.",
+        "2": "Regelmässige Berechtigungsreviews sind für zentrale Rollen oder Anwendungen definiert. Entzüge erfolgen teilweise nachvollziehbar.",
+        "3": "Berechtigungen werden breit und risikobasiert überprüft. Rollenänderungen, Austritte und Entzüge sind in Prozesse integriert.",
+        "4": "Berechtigungen werden kontinuierlich oder automatisiert überprüft. Auffällige oder nicht benötigte Zugriffe werden zeitnah entzogen."
+      },
+      "implementationBarriers": "Access Reviews sind aufwendig, wenn Rollenverantwortliche, aktuelle Nutzungsdaten und nachvollziehbare Nachweise zu Freigaben oder Entzügen fehlen.",
+      "barrierReduction": "Berechtigungsreviews regelmässig durchführen. Rollenowner, Review-Zyklen und Nachweise festlegen. Festgestellte Überberechtigungen in Bereinigungsaufgaben überführen.",
+      "recommendationsByTargetLevel": {
+        "1": "Erste Access Reviews für kritische Rollen durchführen. Verantwortliche benennen und festgestellte Überberechtigungen als Bereinigungsaufgaben dokumentieren.",
+        "2": "Review-Zyklen, Rollenowner und Nachweisformate definieren. Zentrale Rollen und Anwendungen regelmässig prüfen und Entzüge nachvollziehbar umsetzen.",
+        "3": "Berechtigungsreviews risikobasiert ausrollen und mit Eintritts-, Austritts- und Rollenänderungsprozessen verbinden. Auffällige Berechtigungen priorisiert bereinigen.",
+        "4": "Berechtigungen kontinuierlich oder automatisiert überprüfen. Nicht benötigte oder auffällige Zugriffe zeitnah entziehen und Nachweise automatisiert dokumentieren."
+      }
+    },
+    {
+      "id": "K1-04",
+      "areaId": "identity",
+      "question": "Werden privilegierte Zugriffe über getrennte administrative Konten, zentrale PAM- oder vergleichbare Mechanismen sowie zeitlich und sachlich begrenzte Berechtigungen kontrolliert und nachvollziehbar protokolliert?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Administrative Konten, PAM- oder vergleichbare Verfahren sind für zentrale Systeme definiert. Protokollierung ist teilweise umgesetzt.",
+      "levelDescriptions": {
+        "0": "Privilegierte Zugriffe werden nicht getrennt kontrolliert. Administrative Tätigkeiten sind nicht nachvollziehbar protokolliert.",
+        "1": "Getrennte Administrationskonten oder PAM-Mechanismen bestehen punktuell. Zeitliche Begrenzung und Protokollierung sind uneinheitlich.",
+        "2": "Administrative Konten, PAM- oder vergleichbare Verfahren sind für zentrale Systeme definiert. Protokollierung ist teilweise umgesetzt.",
+        "3": "Privilegierte Zugriffe sind breit über PAM, JIT/JEA oder Rollenmodelle kontrolliert. Sensitive Aktionen sind nachvollziehbar protokolliert.",
+        "4": "Privilegierte Zugriffe werden dynamisch, zeitlich begrenzt und risikobasiert gesteuert. Protokolle und Begründungen werden kontinuierlich ausgewertet."
+      },
+      "implementationBarriers": "PAM-Prozesse verändern administrative Arbeitsweisen. Legacy-Zugänge, Notfallzugriffe und Akzeptanzprobleme bei administrativen Rollen erschweren die Umsetzung.",
+      "barrierReduction": "Privilegierte Rollen priorisieren, PAM pilotieren und Notfallprozesse gemeinsam mit Admin-Teams definieren. Akzeptanz durch Schulung und klare Betriebsregeln fördern.",
+      "recommendationsByTargetLevel": {
+        "1": "Privilegierte Rollen priorisieren, getrennte Administrationskonten einführen und Notfallzugriffe dokumentieren. PAM für erste kritische Systeme pilotieren.",
+        "2": "PAM-, JIT- oder vergleichbare Verfahren für zentrale Systeme definieren. Administrative Konten, Notfallprozesse und Protokollierung verbindlich regeln.",
+        "3": "Privilegierte Zugriffe breit über PAM, JIT/JEA oder Rollenmodelle steuern. Sensitive Aktionen protokollieren und regelmässig kontrollieren.",
+        "4": "Privilegierte Zugriffe dynamisch, zeitlich begrenzt und risikobasiert steuern. Genehmigung, Session-Kontrolle und Protokollauswertung weitgehend automatisieren."
+      }
+    },
+    {
+      "id": "K1-05",
+      "areaId": "identity",
+      "question": "Werden interne und externe Identitäten durch starke, mehrfaktorielle oder passwortlose Authentifizierung abgesichert?",
+      "weight": 3,
+      "socioTechnical": [
+        "technical",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "MFA ist für zentrale Benutzergruppen und geschäftskritische Systeme definiert. Passwortlose Verfahren werden teilweise geprüft oder eingeführt.",
+      "levelDescriptions": {
+        "0": "Starke Authentifizierung für interne oder externe Identitäten fehlt. Kritische Zugriffe erfolgen ohne MFA oder passwortlose Verfahren.",
+        "1": "MFA wird punktuell für einzelne Gruppen oder Systeme genutzt. Externe und privilegierte Zugriffe sind uneinheitlich abgesichert.",
+        "2": "MFA ist für zentrale Benutzergruppen und geschäftskritische Systeme definiert. Passwortlose Verfahren werden teilweise geprüft oder eingeführt.",
+        "3": "MFA oder passwortlose Authentifizierung ist breit für interne und externe Identitäten etabliert. Ausnahmen werden gesteuert.",
+        "4": "Authentifizierung wird risikobasiert, adaptiv oder passwortlos umgesetzt. Ausnahmen werden laufend reduziert und überwacht."
+      },
+      "implementationBarriers": "MFA und passwortlose Verfahren werden durch Legacy-Anwendungen, heterogene Nutzergruppen, externe Identitäten und Akzeptanzprobleme erschwert.",
+      "barrierReduction": "MFA risikobasiert einführen, Ausnahmen begrenzen und Nutzergruppen früh informieren. Legacy-Anwendungen separat behandeln und Ersatzpfade planen.",
+      "recommendationsByTargetLevel": {
+        "1": "MFA für priorisierte Benutzergruppen, Administrationskonten oder kritische Anwendungen einführen. Ausnahmen erfassen und Legacy-Anwendungen separat behandeln.",
+        "2": "MFA für zentrale Benutzergruppen und geschäftskritische Systeme verbindlich definieren. Externe Identitäten und Ausnahmen risikobasiert berücksichtigen.",
+        "3": "MFA oder passwortlose Authentifizierung breit für interne und externe Identitäten ausrollen. Nutzerkommunikation, Support und Ausnahmeprozesse stabilisieren.",
+        "4": "Authentifizierung risikobasiert, adaptiv oder passwortlos weiterentwickeln. Ausnahmen kontinuierlich reduzieren und Authentifizierungsereignisse überwachen."
+      }
+    },
+    {
+      "id": "K1-06",
+      "areaId": "identity",
+      "question": "Werden Zugriffsentscheidungen über zentrale, richtlinienbasierte Policy- und Enforcement-Komponenten wie Conditional Access, ZTNA oder vergleichbare Mechanismen gesteuert?",
+      "weight": 3,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Zugriffsentscheidungen werden nicht zentral oder richtlinienbasiert gesteuert. Anwendungen, Plattformen oder Netzwerkzugänge prüfen Zugriffe jeweils isoliert.",
+        "1": "Einzelne Richtlinien bestehen punktuell. Zugriffe werden je Anwendung oder Plattform unterschiedlich geprüft, etwa über lokale Regeln oder manuelle Freigaben.",
+        "2": "Zentrale Policy- oder Enforcement-Komponenten sind für wesentliche Zugriffe definiert. Beispiele sind Conditional Access, ZTNA-Regeln oder IdP-Policies.",
+        "3": "Zugriffsrichtlinien werden breit über zentrale Komponenten durchgesetzt. Entscheidungen sind konsistent, nachvollziehbar und über Anwendungen, Dienste oder Plattformen hinweg abgestimmt.",
+        "4": "Policy- und Enforcement-Komponenten arbeiten dynamisch, risikobasiert und integriert. Regeln werden kontinuierlich angepasst und können Zugriffe automatisch erlauben, einschränken oder blockieren."
+      },
+      "implementationBarriers": "Zentrale Policy- und Enforcement-Komponenten sind schwer konsistent umzusetzen, wenn IdP, Anwendungen, ZTNA, Proxy oder API-Gateways getrennt gesteuert werden.",
+      "barrierReduction": "Zentrale Policy-Entscheidungen und Enforcement-Punkte definieren. Danach priorisierte Zugriffspfade über Conditional Access, ZTNA oder vergleichbare Mechanismen anbinden.",
+      "recommendationsByTargetLevel": {
+        "1": "Zentrale Policy-Entscheidungen und Enforcement-Punkte bestimmen. Erste Zugriffspfade über Conditional Access, ZTNA, IdP-Policies oder Proxy-Regeln steuern.",
+        "2": "Policy- und Enforcement-Komponenten für wesentliche Zugriffe definieren. Regeln, Verantwortlichkeiten und Ausnahmen über zentrale Vorgaben dokumentieren.",
+        "3": "Zugriffsrichtlinien breit über zentrale Komponenten durchsetzen. Anwendungen, Dienste und Plattformen konsistent anbinden und Regelwirkungen regelmässig überprüfen.",
+        "4": "Policy- und Enforcement-Komponenten dynamisch und risikobasiert steuern. Zugriffe automatisch erlauben, einschränken oder blockieren und Regelwerke kontinuierlich optimieren."
+      }
+    },
+    {
+      "id": "K1-07",
+      "areaId": "identity",
+      "question": "Werden Benutzer-, Identitäts-, Risiko- und Verhaltensinformationen bei Zugriffsentscheidungen nachvollziehbar berücksichtigt?",
+      "weight": 3,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Benutzer-, Identitäts-, Risiko- oder Verhaltensinformationen werden bei Zugriffsentscheidungen nicht berücksichtigt. Zugriffe basieren vor allem auf statischen Berechtigungen.",
+        "1": "Einzelne Kontextinformationen werden punktuell genutzt. Beispiele sind Standort oder einfache Risikoindikatoren. Die Entscheidungslogik bleibt uneinheitlich.",
+        "2": "Relevante Kontextinformationen sind für zentrale Zugriffe definiert. Identitätsrisiko, Anmelderisiko, Benutzerverhalten oder Sitzungsinformationen werden teilweise berücksichtigt.",
+        "3": "Informationen aus Identität, Verhalten, Sitzung und Risiko werden breit korreliert. Zugriffsentscheidungen sind nachvollziehbar begründet und mit zentralen Policies verbunden.",
+        "4": "Kontextinformationen werden kontinuierlich und dynamisch ausgewertet. Zugriffe werden adaptiv genehmigt, eingeschränkt oder blockiert. Auffällige Muster lösen zusätzliche Kontrollen aus."
+      },
+      "implementationBarriers": "Kontext- und Risikoinformationen sind schwer nutzbar, wenn nicht alle Systeme geeignete Daten liefern oder Korrelation, Datenqualität und Datenschutz ungeklärt sind.",
+      "barrierReduction": "Relevante Kontextinformationen festlegen, Datenquellen priorisieren und Datenschutzanforderungen klären. Zuerst Standardplattformen anbinden, danach Spezialanwendungen ergänzen.",
+      "recommendationsByTargetLevel": {
+        "1": "Relevante Kontextinformationen wie Anmelderisiko, Standort oder Benutzerverhalten festlegen. Erste Standardplattformen als Datenquellen anbinden.",
+        "2": "Kontext- und Risikoinformationen für zentrale Zugriffe definieren. Datenschutzanforderungen klären und Entscheidungsregeln nachvollziehbar dokumentieren.",
+        "3": "Identitäts-, Sitzungs-, Risiko- und Verhaltensinformationen breit korrelieren. Zugriffsentscheidungen mit zentralen Policies verbinden und Auswertungen regelmässig prüfen.",
+        "4": "Kontextinformationen kontinuierlich und dynamisch auswerten. Auffällige Muster automatisch mit zusätzlichen Kontrollen, Einschränkungen oder Blockierungen verknüpfen."
+      }
+    },
+    {
+      "id": "K2-01",
+      "areaId": "devices",
+      "question": "Werden Endgeräte interner und externer Nutzender vor dem Zugriff auf Unternehmensressourcen registriert und über MDM, UEM oder vergleichbare Verfahren verwaltet?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation"
+      ],
+      "explanation": "Für den gewählten Geltungsbereich ist dieses Bewertungskriterium nicht relevant.",
+      "levelDescriptions": {
+        "0": "Endgeräte werden vor dem Zugriff nicht registriert oder verwaltet. Gerätetypen und Eigentumsformen sind nicht verlässlich bekannt.",
+        "1": "Einzelne Geräte werden manuell oder punktuell verwaltet. Private, mobile oder externe Geräte sind uneinheitlich erfasst.",
+        "2": "MDM, UEM oder vergleichbare Verfahren sind für wesentliche Gerätetypen definiert. Zugriff auf Ressourcen setzt teilweise Registrierung voraus.",
+        "3": "Firmeneigene, private und mobile Geräte werden breit registriert und verwaltet. Zugriffsvoraussetzungen sind nachvollziehbar umgesetzt.",
+        "4": "Geräteverwaltung ist automatisiert und nahezu vollständig. Enrollment, Compliance und Zugriffsvoraussetzungen werden kontinuierlich aktualisiert."
+      },
+      "implementationBarriers": "Geräteregistrierung wird durch BYOD, externe Geräte, unvollständige Inventare und Widerstand gegen die Verwaltung privater Geräte erschwert.",
+      "barrierReduction": "Geräteklassen unterscheiden, BYOD-Regeln transparent kommunizieren und Mindestanforderungen für verwaltete und private Geräte definieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Geräteklassen, Eigentümer und Mindestinformationen festlegen. Erste firmeneigene, private oder mobile Geräte in MDM, UEM oder vergleichbaren Verfahren registrieren.",
+        "2": "Registrierung und Verwaltung für zentrale Geräteklassen verbindlich definieren. BYOD-Vorgaben, Datenschutz und Nutzerkommunikation klar regeln.",
+        "3": "Geräteverwaltung breit auf interne, externe, mobile und private Geräte ausrollen. Inventar, Compliance und Zugriffsprozesse miteinander verbinden.",
+        "4": "Geräteregistrierung und Verwaltung soweit sinnvoll automatisieren. Nicht konforme oder unbekannte Geräte kontinuierlich erkennen und aus Zugriffspfaden ausschliessen."
+      }
+    },
+    {
+      "id": "K2-02",
+      "areaId": "devices",
+      "question": "Werden Gerätezustand, Compliance und Risiko firmeneigener, privater und mobiler Geräte bei Zugriffsentscheidungen berücksichtigt?",
+      "weight": 3,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Compliance- und Risikoprüfungen sind für zentrale Geräteklassen definiert. Zugriffe werden teilweise vom Gerätezustand abhängig gemacht. Nicht konforme Geräte werden eingeschränkt.",
+      "levelDescriptions": {
+        "0": "Gerätezustand, Compliance und Risiko werden bei Zugriffsentscheidungen nicht berücksichtigt.",
+        "1": "Geräte-Compliance wird punktuell geprüft. Beispiele sind MDM-Status, Betriebssystemversion oder Verschlüsselung. Die Ergebnisse beeinflussen Zugriffe nur uneinheitlich.",
+        "2": "Compliance- und Risikoprüfungen sind für zentrale Geräteklassen definiert. Zugriffe werden teilweise vom Gerätezustand abhängig gemacht. Nicht konforme Geräte werden eingeschränkt.",
+        "3": "Gerätezustand, Compliance und Risiko werden breit in Zugriffsentscheidungen integriert. EDR-Status, Patchstand und Sicherheitskonfigurationen beeinflussen Zugriff und Remediation.",
+        "4": "Geräterisiken werden kontinuierlich und dynamisch bewertet. Zugriffe werden automatisiert angepasst, eingeschränkt oder blockiert. Remediation kann automatisch angestossen werden."
+      },
+      "implementationBarriers": "Der Gerätesicherheitszustand ist schwer nutzbar, wenn MDM, EDR, Softwareverteilung und Betriebssysteme Compliance-Daten getrennt bereitstellen.",
+      "barrierReduction": "Geräte-Compliance-Quellen konsolidieren und Mindestmerkmale wie Patchstand, Verschlüsselung, EDR-Status und MDM-Status priorisiert in Zugriffsregeln übernehmen.",
+      "recommendationsByTargetLevel": {
+        "1": "Erste Compliance-Prüfungen für priorisierte Geräte einführen, etwa MDM-Status, Verschlüsselung oder Betriebssystemversion. Zugriffseinschränkungen für nicht konforme Geräte festlegen.",
+        "2": "Compliance- und Risikokriterien für zentrale Geräteklassen definieren. Ergebnisse aus MDM, UEM, EDR oder Softwareverteilung für Zugriffsentscheidungen nutzbar machen.",
+        "3": "Gerätezustand, Patchstand, EDR-Status und Sicherheitskonfigurationen breit in Zugriffsentscheidungen integrieren. Remediation-Prozesse für nicht konforme Geräte etablieren.",
+        "4": "Geräterisiken kontinuierlich bewerten und Zugriffe automatisch anpassen. Remediation, Sperrung oder Quarantäne bei Abweichungen soweit sinnvoll automatisieren."
+      }
+    },
+    {
+      "id": "K2-03",
+      "areaId": "devices",
+      "question": "Werden Identitäts-, Geräte- und Zugriffsaktivitäten kontinuierlich überwacht, korreliert und auf Anomalien ausgewertet?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation"
+      ],
+      "explanation": "Für den gewählten Geltungsbereich ist dieses Bewertungskriterium nicht relevant.",
+      "levelDescriptions": {
+        "0": "Identitäts-, Geräte- und Zugriffsaktivitäten werden nicht zentral überwacht oder auf Anomalien ausgewertet.",
+        "1": "Einzelne Aktivitäten werden punktuell protokolliert. Korrelation und Anomalieerkennung erfolgen manuell oder nur in Teilbereichen.",
+        "2": "Zentrale Datenquellen sind definiert. Aktivitäten werden teilweise korreliert und für ausgewählte Risiken ausgewertet.",
+        "3": "Aktivitäten werden breit überwacht und korreliert. Anomalien werden erkannt, priorisiert und an Security Operations weitergegeben.",
+        "4": "Überwachung und Korrelation erfolgen kontinuierlich und automatisiert. Anomalien lösen adaptive Kontrollen oder Reaktionsmassnahmen aus."
+      },
+      "implementationBarriers": "Kontinuierliche Korrelation von Identitäts-, Geräte- und Zugriffsdaten erzeugt Integrationsaufwand, Datenqualitätsprobleme und Analysekomplexität.",
+      "barrierReduction": "Datenquellen priorisieren, Korrelationsregeln schrittweise einführen und Datenqualität laufend prüfen. Start mit kritischen Identitäts- und Geräteereignissen.",
+      "recommendationsByTargetLevel": {
+        "1": "Wichtige Identitäts-, Geräte- und Zugriffsereignisse erfassen und erste Anomalien für kritische Benutzergruppen oder Systeme auswerten.",
+        "2": "Zentrale Datenquellen und Korrelationsregeln für Identitäts-, Geräte- und Zugriffsaktivitäten definieren. Alarmierung und Verantwortlichkeiten festlegen.",
+        "3": "Aktivitäten über relevante Plattformen hinweg korrelieren und auf Anomalien auswerten. Erkenntnisse mit SOC-, IAM- und Geräteprozessen verbinden.",
+        "4": "Überwachung und Anomalieerkennung kontinuierlich weiterentwickeln. Regeln, Baselines und Reaktionsprozesse anhand von Vorfällen und Fehlalarmen optimieren."
+      }
+    },
+    {
+      "id": "K3-01",
+      "areaId": "network",
+      "question": "Ist die Netzwerkarchitektur strukturiert, segmentiert und auf klar definierte Netzwerkzonen oder Schutzbereiche ausgerichtet?",
+      "weight": 3,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation"
+      ],
+      "explanation": "Für den gewählten Geltungsbereich ist dieses Bewertungskriterium nicht relevant.",
+      "levelDescriptions": {
+        "0": "Die Netzwerkarchitektur besitzt keine klar definierten Zonen oder Schutzbereiche.",
+        "1": "Einzelne Segmente oder Schutzbereiche bestehen. Trennung und Dokumentation sind uneinheitlich.",
+        "2": "Netzwerkzonen und Schutzbereiche sind definiert. Kritische Bereiche sind teilweise segmentiert und dokumentiert.",
+        "3": "Die Architektur ist breit segmentiert und an Schutzbedarf oder Kritikalität ausgerichtet. Änderungen werden kontrolliert.",
+        "4": "Segmentierung wird kontinuierlich optimiert und soweit sinnvoll automatisiert verwaltet. Schutzbereiche passen sich Risiken und Betriebsbedarf an."
+      },
+      "implementationBarriers": "Gewachsene Netzwerkstrukturen, unklare Zonengrenzen und fehlende Dokumentation erschweren eine saubere Segmentierungsarchitektur.",
+      "barrierReduction": "Netzwerkzonen und Kommunikationsflüsse inventarisieren, Zielarchitektur definieren und Segmentierung phasenweise mit kritischen Bereichen beginnen.",
+      "recommendationsByTargetLevel": {
+        "1": "Netzwerkbereiche, Schutzbedarf und Kommunikationsflüsse erfassen. Erste Zonen oder Schutzbereiche für kritische Systeme festlegen.",
+        "2": "Eine Zielarchitektur mit klaren Netzwerkzonen, Übergängen und Verantwortlichkeiten definieren. Priorisierte Segmente technisch und dokumentiert umsetzen.",
+        "3": "Segmentierung breit über Standorte, Plattformen und kritische Dienste ausrollen. Kommunikationsflüsse überwachen und Ausnahmen regelmässig überprüfen.",
+        "4": "Netzwerkzonen, Regeln und Übergänge kontinuierlich validieren. Abweichungen automatisiert erkennen und Änderungen kontrolliert in die Architektur übernehmen."
+      }
+    },
+    {
+      "id": "K3-02",
+      "areaId": "network",
+      "question": "Werden kritische oder internetexponierte Services durch Mikrosegmentierung oder vergleichbare Segmentierungsmechanismen gezielt geschützt?",
+      "weight": 3,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Kritische oder internetexponierte Services sind nicht durch Mikrosegmentierung oder vergleichbare Mechanismen geschützt.",
+        "1": "Einzelne kritische Services sind segmentiert. Segmentierung beruht meist auf statischen Regeln oder manueller Pflege.",
+        "2": "Mikrosegmentierung oder vergleichbare Mechanismen sind für zentrale Services definiert. Kommunikationsbedarf wird teilweise berücksichtigt.",
+        "3": "Kritische und internetexponierte Services sind breit nach Risiko, Kritikalität und Kommunikationsbedarf geschützt.",
+        "4": "Segmentierung wird dynamisch, automatisiert oder policybasiert gesteuert. Kommunikationsflüsse werden laufend überprüft und angepasst."
+      },
+      "implementationBarriers": "Mikrosegmentierung verursacht hohen Analyse-, Regel- und Betriebsaufwand und kann bestehende Kommunikationsflüsse unbeabsichtigt beeinträchtigen.",
+      "barrierReduction": "Kommunikationsflüsse messen, Pilotzonen definieren und Regeln zuerst im Monitoring- oder Simulationsmodus validieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Kritische oder internetexponierte Services priorisieren und erste Segmentierungsregeln einführen. Kommunikationsbedarf und Ausnahmen dokumentieren.",
+        "2": "Mikrosegmentierung oder vergleichbare Mechanismen für zentrale Services definieren. Regelpflege, Testverfahren und Betriebsverantwortung festlegen.",
+        "3": "Segmentierung breit auf kritische Services und Workloads ausweiten. Regeln überwachen, regelmässig überprüfen und mit Change-Prozessen verbinden.",
+        "4": "Segmentierungsregeln dynamisch, workload- oder risikobasiert steuern. Abweichungen automatisch erkennen und Regelwerke kontinuierlich optimieren."
+      }
+    },
+    {
+      "id": "K3-03",
+      "areaId": "network",
+      "question": "Werden Legacy-Systeme durch Segmentierung, vorgelagerte Zugriffskontrollen oder technische Kapselung so eingebunden, dass moderne Authentifizierungs- und Autorisierungsmechanismen durchgesetzt werden können?",
+      "weight": 1,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Legacy-Systeme sind ohne Kapselung oder vorgelagerte Zugriffskontrollen eingebunden.",
+        "1": "Legacy-Systeme werden punktuell segmentiert oder geschützt. Authentifizierung und Autorisierung bleiben uneinheitlich.",
+        "2": "Für relevante Legacy-Systeme sind Segmentierung, Proxies oder Zugriffskontrollen definiert. Moderne Mechanismen werden teilweise durchgesetzt.",
+        "3": "Legacy-Systeme sind breit gekapselt und über kontrollierte Zugriffspfade eingebunden. Risiken werden regelmässig überprüft.",
+        "4": "Legacy-Zugriffe werden dynamisch kontrolliert und soweit möglich modernisiert. Risiken, Ausnahmen und Ablösungen werden kontinuierlich gesteuert."
+      },
+      "implementationBarriers": "Legacy-Systeme lassen sich oft nur begrenzt härten oder integrieren. Zusätzliche Kapselung und Zugriffskontrollen können komplex und kostenintensiv sein.",
+      "barrierReduction": "Legacy-Systeme nach Kritikalität priorisieren, Kompensationsmassnahmen definieren und Ablöse- oder Kapselungsoptionen wirtschaftlich bewerten.",
+      "recommendationsByTargetLevel": {
+        "1": "Legacy-Systeme identifizieren und Schutzbedarf bewerten. Erste Kapselungs- oder Zugriffskontrollen für besonders kritische Systeme festlegen.",
+        "2": "Zugriffspfade, vorgelagerte Kontrollen und Segmentierung für zentrale Legacy-Systeme definieren. Kosten, Abhängigkeiten und Ersatzpfade planen.",
+        "3": "Legacy-Systeme breit über Segmentierung, Proxy-, Bastion- oder Zugriffskontrollen einbinden. Authentifizierung, Autorisierung und Protokollierung kontrolliert durchsetzen.",
+        "4": "Legacy-Zugriffe kontinuierlich überwachen und schrittweise reduzieren. Modernisierung, Ablösung oder automatisierte Kapselung risikobasiert steuern."
+      }
+    },
+    {
+      "id": "K3-04",
+      "areaId": "network",
+      "question": "Werden Netzwerkpfade, Kapazitäten und Failover-Mechanismen dynamisch oder automatisiert gesteuert, um geschäftskritische Anwendungen verfügbar und resilient zu betreiben?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Resilienzanforderungen für zentrale Anwendungen sind definiert. Netzwerkpfade, Lastverteilung, Kapazitäten oder Failover-Mechanismen werden teilweise auf kritische Anwendungen ausgerichtet.",
+      "levelDescriptions": {
+        "0": "Netzwerkpfade, Kapazitäten und Failover-Mechanismen werden nicht gezielt auf geschäftskritische Anwendungen ausgerichtet. Resilienzanforderungen sind nicht nachvollziehbar definiert.",
+        "1": "Einzelne Resilienzmechanismen bestehen punktuell, etwa manuelle Umschaltungen oder statische Redundanzen. Anpassungen erfolgen reaktiv und nur für einzelne Netzwerkbereiche.",
+        "2": "Resilienzanforderungen für zentrale Anwendungen sind definiert. Netzwerkpfade, Lastverteilung, Kapazitäten oder Failover-Mechanismen werden teilweise auf kritische Anwendungen ausgerichtet.",
+        "3": "Netzwerkressourcen unterstützen geschäftskritische Anwendungen breit und nachvollziehbar. Zentrale Netzwerkkonfiguration, SDN, Lastverteilung oder Failover werden geplant, überwacht und regelmässig überprüft.",
+        "4": "Netzwerkpfade, Kapazitätssteuerung und Failover werden dynamisch oder automatisiert gesteuert. Die Connectivity für kritische Anwendungen wird resilient bereitgestellt, kontinuierlich überwacht und optimiert."
+      },
+      "implementationBarriers": "Dynamische Netzwerkpfade, Failover, Lastverteilung und Kapazitätssteuerung benötigen verlässliche Architektur-, Monitoring- und Automatisierungsgrundlagen.",
+      "barrierReduction": "Kritische Anwendungen und Connectivity-Abhängigkeiten erfassen, Failover und Kapazitäten testen und Automatisierung schrittweise für priorisierte Netzwerkpfade einführen.",
+      "recommendationsByTargetLevel": {
+        "1": "Kritische Anwendungen und deren Netzwerkabhängigkeiten erfassen. Erste Redundanzen, manuelle Failover-Verfahren oder Kapazitätsreserven für priorisierte Dienste festlegen.",
+        "2": "Resilienzanforderungen für zentrale Anwendungen definieren. Netzwerkpfade, Lastverteilung, Kapazitäten und Failover-Mechanismen gezielt darauf ausrichten.",
+        "3": "Zentrale Netzwerkkonfiguration, SDN, Lastverteilung oder Failover für geschäftskritische Anwendungen geplant betreiben, überwachen und regelmässig testen.",
+        "4": "Netzwerkpfade, Kapazitätssteuerung und Failover dynamisch oder automatisiert steuern. Resiliente Connectivity für kritische Anwendungen kontinuierlich überwachen und optimieren."
+      }
+    },
+    {
+      "id": "K3-05",
+      "areaId": "network",
+      "question": "Werden ein- und ausgehende Netzwerkverbindungen auf das erforderliche Minimum beschränkt und kontrolliert?",
+      "weight": 3,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Ein- und ausgehende Netzwerkverbindungen werden nicht auf das notwendige Minimum beschränkt.",
+        "1": "Filterregeln bestehen punktuell. Freigaben werden manuell gepflegt und nur unregelmässig überprüft.",
+        "2": "Ingress- und Egress-Regeln sind für zentrale Zonen definiert. Notwendige Verbindungen werden teilweise dokumentiert und kontrolliert.",
+        "3": "Netzwerkverbindungen sind breit auf erforderliche Kommunikationsbeziehungen reduziert. Regeln werden regelmässig geprüft und bereinigt.",
+        "4": "Verbindungsregeln werden dynamisch, automatisiert oder risikobasiert gepflegt. Nicht benötigte Kommunikation wird zeitnah erkannt und blockiert."
+      },
+      "implementationBarriers": "Kommunikationsflüsse zwischen Systemen, Zonen und externen Diensten sind oft unvollständig dokumentiert. Strikte Regeln erzeugen dadurch Ausnahmen und Betriebsrisiken.",
+      "barrierReduction": "Kommunikationsbeziehungen erfassen, Regeln iterativ härten und Ausnahmen mit Risikoakzeptanz, Ablaufdatum und Review verknüpfen.",
+      "recommendationsByTargetLevel": {
+        "1": "Kommunikationsflüsse zwischen Systemen, Zonen und externen Diensten erfassen. Erste nicht benötigte Verbindungen für kritische Bereiche entfernen.",
+        "2": "Erlaubte ein- und ausgehende Verbindungen für zentrale Systeme definieren. Firewall-, Proxy- oder Routing-Regeln dokumentieren und Ausnahmen begründen.",
+        "3": "Kommunikationsregeln breit auf relevante Zonen und Dienste anwenden. Regelwerke überwachen, bereinigen und mit Change-Prozessen abstimmen.",
+        "4": "Kommunikationsflüsse kontinuierlich analysieren und Regeln automatisiert auf Abweichungen prüfen. Nicht benötigte Verbindungen risikobasiert entfernen."
+      }
+    },
+    {
+      "id": "K3-06",
+      "areaId": "network",
+      "question": "Werden Netzwerk- und Datenströme durch moderne Filter- und Schutzmechanismen auf bekannte Bedrohungen geprüft und bei Bedarf blockiert?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation"
+      ],
+      "explanation": "Für den gewählten Geltungsbereich ist dieses Bewertungskriterium nicht relevant.",
+      "levelDescriptions": {
+        "0": "Netzwerk- und Datenströme werden nicht auf bekannte Bedrohungen geprüft oder blockiert.",
+        "1": "Filterung erfolgt punktuell über einzelne Firewalls oder Gateways. Bedrohungserkennung und Blockierung sind uneinheitlich.",
+        "2": "Zentrale Filter- und Schutzmechanismen sind definiert. Bekannte Bedrohungen werden für wichtige Protokolle teilweise blockiert.",
+        "3": "Netzwerk- und Datenströme werden breit über moderne Filter, Threat Intelligence oder Gateway-Schutz geprüft und gesteuert.",
+        "4": "Filter- und Schutzmechanismen werden kontinuierlich aktualisiert. Bedrohungen werden automatisiert erkannt, priorisiert und blockiert."
+      },
+      "implementationBarriers": "Zentrale Filter- und Schutzmechanismen können Fehlalarme erzeugen. Falsch positive Blockierungen führen zu ungeplanten Unterbrüchen und hohem Betriebsaufwand.",
+      "barrierReduction": "Regeln schrittweise aktivieren, Blockierungen zunächst überwachen und False-Positive-Raten regelmässig auswerten. Kritische Ausnahmen dokumentiert freigeben.",
+      "recommendationsByTargetLevel": {
+        "1": "Zentrale Filterpunkte und besonders kritische Datenströme bestimmen. Erste Schutzregeln gegen bekannte Bedrohungen aktivieren und Auswirkungen beobachten.",
+        "2": "Filter- und Schutzmechanismen für zentrale Netzwerk- und Datenströme definieren. False Positives, Ausnahmen und Betriebsprozesse verbindlich regeln.",
+        "3": "Bedrohungsfilterung breit auf relevante Datenströme ausweiten. Blockierungen, Fehlalarme und Betriebsunterbrüche regelmässig analysieren und optimieren.",
+        "4": "Filterregeln, Threat-Intelligence-Feeds und Reaktionsprozesse kontinuierlich aktualisieren. Fehlalarme reduzieren und Schutzwirkung automatisiert überwachen."
+      }
+    },
+    {
+      "id": "K3-07",
+      "areaId": "network",
+      "question": "Wird Netzwerkverkehr angemessen verschlüsselt?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Netzwerkverkehr ist breit entsprechend Schutzbedarf verschlüsselt. Zertifikate, Protokolle und Ausnahmen werden regelmässig überprüft.",
+      "levelDescriptions": {
+        "0": "Netzwerkverkehr wird nicht angemessen verschlüsselt oder die Verschlüsselung ist nicht nachweisbar.",
+        "1": "Verschlüsselung wird punktuell eingesetzt. Verfahren und Protokolle sind uneinheitlich oder teilweise veraltet.",
+        "2": "Verschlüsselungsanforderungen sind für zentrale Verkehrswege definiert. Gängige Verfahren wie TLS werden teilweise standardisiert eingesetzt.",
+        "3": "Netzwerkverkehr ist breit entsprechend Schutzbedarf verschlüsselt. Zertifikate, Protokolle und Ausnahmen werden regelmässig überprüft.",
+        "4": "Verschlüsselung wird zentral verwaltet, überwacht und kontinuierlich verbessert. Zertifikats- und Schlüsselmanagement sind weitgehend automatisiert."
+      },
+      "implementationBarriers": "Verschlüsselung von Netzwerkverkehr wird durch Legacy-Protokolle, Zertifikatsmanagement, Performance-Anforderungen und Fehlkonfigurationen erschwert.",
+      "barrierReduction": "Zertifikats- und Schlüsselmanagement standardisieren, Altprotokolle priorisiert ablösen und Verschlüsselung nach Kritikalität der Kommunikation ausrollen.",
+      "recommendationsByTargetLevel": {
+        "1": "Kritische Verbindungen und unverschlüsselte Datenströme identifizieren. Mindestanforderungen an Transportverschlüsselung und Zertifikatsnutzung festlegen.",
+        "2": "Verschlüsselungsvorgaben für zentrale Protokolle, Verbindungen und Schnittstellen definieren. Zertifikatsverwaltung und Ausnahmen dokumentiert regeln.",
+        "3": "Netzwerkverschlüsselung breit über interne, externe und mandantenbezogene Datenströme umsetzen. Zertifikate, Protokolle und Ausnahmen regelmässig überprüfen.",
+        "4": "Verschlüsselungsstandards kontinuierlich aktuell halten. Zertifikatslebenszyklus, Protokollhärtung und Abweichungserkennung soweit sinnvoll automatisieren."
+      }
+    },
+    {
+      "id": "K3-08",
+      "areaId": "network",
+      "question": "Werden Zugriffe auf Cloud-Dienste durch zentrale Sicherheitskontrollen gesteuert und überwacht?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Zentrale Sicherheitskontrollen für wichtige Cloud-Dienste sind definiert. Beispiele sind CASB, SWG oder SSE-Komponenten.",
+      "levelDescriptions": {
+        "0": "Zugriffe auf Cloud-Dienste werden nicht zentral gesteuert oder überwacht.",
+        "1": "Einzelne Cloud-Zugriffe werden manuell oder über isolierte Tools kontrolliert. Transparenz und Steuerung sind uneinheitlich.",
+        "2": "Zentrale Sicherheitskontrollen für wichtige Cloud-Dienste sind definiert. Beispiele sind CASB, SWG oder SSE-Komponenten.",
+        "3": "Cloud-Zugriffe werden breit über zentrale Kontrollen gesteuert und überwacht. Richtlinien, Protokollierung und Ausnahmen sind nachvollziehbar.",
+        "4": "Cloud-Zugriffe werden dynamisch, risikobasiert und automatisiert gesteuert. Richtlinien und Erkennung werden kontinuierlich optimiert."
+      },
+      "implementationBarriers": "Cloud- und Security-Dienste verschiedener Anbieter lassen sich nur mit hohem Integrationsaufwand konsistent steuern und überwachen.",
+      "barrierReduction": "Cloud-Zugriffskontrollen standardisieren, Anbieterintegration priorisieren und zentrale Policies über Identität, Netzwerk und Cloud-Governance abstimmen.",
+      "recommendationsByTargetLevel": {
+        "1": "Genutzte Cloud-Dienste und Zugriffspfade erfassen. Erste zentrale Sicherheitskontrollen für priorisierte Dienste einführen, etwa CASB, SWG oder IdP-Policies.",
+        "2": "Cloud-Zugriffskontrollen für zentrale Dienste definieren. Zuständigkeiten, Protokollierung und Anbieterunterschiede nachvollziehbar dokumentieren.",
+        "3": "Zugriffe auf Cloud-Dienste breit über zentrale Kontrollen steuern und überwachen. Richtlinien über Anbieter hinweg möglichst konsistent ausrichten.",
+        "4": "Cloud-Zugriffe dynamisch, risikobasiert und automatisiert steuern. Anbieterübergreifende Kontrolle, Monitoring und Regeloptimierung kontinuierlich weiterentwickeln."
+      }
+    },
+    {
+      "id": "K4-01",
+      "areaId": "applications",
+      "question": "Werden Anwendungen systematisch identifiziert und nach Kritikalität, Schutzbedarf oder Betriebsrelevanz kategorisiert?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Anwendungen werden nicht systematisch identifiziert oder nach Kritikalität, Schutzbedarf oder Betriebsrelevanz kategorisiert.",
+        "1": "Einzelne Anwendungen sind bekannt. Kategorisierung erfolgt punktuell, manuell oder ohne einheitliche Kriterien.",
+        "2": "Ein Anwendungskatalog und grundlegende Kritikalitätskriterien sind definiert. Zentrale Anwendungen sind teilweise kategorisiert.",
+        "3": "Anwendungen sind breit inventarisiert und nach Kritikalität, Schutzbedarf oder Betriebsrelevanz kategorisiert. Änderungen werden regelmässig gepflegt.",
+        "4": "Anwendungsinventar und Kategorisierung werden kontinuierlich aktualisiert. Kritikalität und Schutzbedarf fliessen automatisiert in Steuerung und Priorisierung ein."
+      },
+      "implementationBarriers": "Anwendungsinventare bleiben unvollständig, wenn Fachbereiche, Plattformteams und Betrieb keine gemeinsame aktuelle Sicht auf Kritikalität und Ownership haben.",
+      "barrierReduction": "Application Owner definieren, Inventar mit Betriebs- und Fachsicht verbinden und Kritikalität regelmässig validieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Anwendungen erfassen und Verantwortliche benennen. Erste Kritikalitäts- oder Schutzbedarfskategorien für priorisierte Anwendungen festlegen.",
+        "2": "Ein Anwendungskatalog mit Kritikalität, Schutzbedarf und Betriebsrelevanz für zentrale Anwendungen aufbauen. Pflegeprozess und Datenverantwortung definieren.",
+        "3": "Anwendungsinventar breit in Betriebs-, Sicherheits- und Change-Prozesse integrieren. Kritikalität und Abhängigkeiten regelmässig überprüfen.",
+        "4": "Anwendungsdaten soweit sinnvoll automatisiert aktualisieren. Kritikalität, Abhängigkeiten und Schutzbedarf kontinuierlich mit Risiko- und Betriebsdaten abgleichen."
+      }
+    },
+    {
+      "id": "K4-02",
+      "areaId": "applications",
+      "question": "Sind Entwicklungs-, Test- und Produktionsumgebungen technisch und organisatorisch getrennt und werden Zugriffe sowie Deployments kontrolliert?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Trennung der Umgebungen, Zugriffsrollen und Deploymentwege sind definiert. Zentrale Anwendungen sind teilweise abgedeckt.",
+      "levelDescriptions": {
+        "0": "Entwicklungs-, Test- und Produktionsumgebungen sind nicht getrennt. Zugriffe oder Deployments werden nicht kontrolliert.",
+        "1": "Umgebungen sind teilweise getrennt. Zugriffs- und Deploymentkontrollen erfolgen manuell oder uneinheitlich.",
+        "2": "Trennung der Umgebungen, Zugriffsrollen und Deploymentwege sind definiert. Zentrale Anwendungen sind teilweise abgedeckt.",
+        "3": "Umgebungen sind breit getrennt und kontrolliert. Deployments erfolgen nachvollziehbar über definierte Prozesse oder CI/CD-Pipelines.",
+        "4": "Trennung, Zugriff und Deployment werden automatisiert, policybasiert und kontinuierlich überwacht. Abweichungen werden zeitnah erkannt."
+      },
+      "implementationBarriers": "Trennung von Umgebungen scheitert an gemeinsamen Konten, Datenkopien, Deployment-Abkürzungen und historisch gewachsenen Betriebsprozessen.",
+      "barrierReduction": "Umgebungstrennung verbindlich definieren, gemeinsam genutzte Konten abbauen und produktionsnahe Daten in Testumgebungen kontrollieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Entwicklungs-, Test- und Produktionsumgebungen für kritische Anwendungen trennen. Erste Zugriffs- und Deployment-Regeln verbindlich festlegen.",
+        "2": "Trennungs-, Zugriffs- und Deployment-Vorgaben für zentrale Anwendungen definieren. Administrations- und Freigabeprozesse nachvollziehbar dokumentieren.",
+        "3": "Umgebungstrennung breit über Anwendungen und Plattformen umsetzen. Zugriffe, Deployments und Ausnahmen regelmässig kontrollieren.",
+        "4": "Trennung, Zugriffssteuerung und Deployment-Kontrollen automatisiert prüfen. Abweichungen in CI/CD-, Change- und Betriebsprozesse überführen."
+      }
+    },
+    {
+      "id": "K4-03",
+      "areaId": "applications",
+      "question": "Werden Sicherheitsprüfungen für Anwendungen systematisch in den Softwareentwicklungs- und Deploymentprozess integriert?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Sicherheitsprüfungen für Anwendungen sind nicht im Entwicklungs- oder Deploymentprozess integriert.",
+        "1": "Einzelne Sicherheitsprüfungen erfolgen punktuell, etwa manuelle Reviews oder sporadische Scans.",
+        "2": "Sicherheitsprüfungen wie SAST, DAST, Dependency-Scanning oder Code Reviews sind für zentrale Anwendungen definiert.",
+        "3": "Sicherheitsprüfungen sind breit in SDLC und Deployment integriert. Ergebnisse werden priorisiert und vor Releases berücksichtigt.",
+        "4": "Sicherheitsprüfungen laufen weitgehend automatisiert in CI/CD-Pipelines. Risiken, Abhängigkeiten und Findings werden kontinuierlich gesteuert."
+      },
+      "implementationBarriers": "Security-Prüfungen im SDLC erfordern Toolintegration, Entwicklerakzeptanz und klare Verantwortlichkeiten zwischen Entwicklung, Betrieb und Security.",
+      "barrierReduction": "Security-Checks in bestehende Entwicklungsprozesse integrieren, klare Verantwortlichkeiten definieren und Entwicklerteams mit praxisnahen Guidelines unterstützen.",
+      "recommendationsByTargetLevel": {
+        "1": "Sicherheitsprüfungen für priorisierte Anwendungen festlegen. Erste SAST-, DAST-, Dependency- oder Review-Verfahren in Entwicklungsabläufe integrieren.",
+        "2": "Mindestprüfungen und Verantwortlichkeiten im SDLC definieren. Findings priorisieren und verbindliche Behebungsprozesse für zentrale Anwendungen etablieren.",
+        "3": "Sicherheitsprüfungen breit in Entwicklung, Deployment und Betrieb integrieren. Ergebnisse mit Risiko-, Change- und Vulnerability-Prozessen verbinden.",
+        "4": "Prüfungen automatisiert in CI/CD und Release-Prozesse einbinden. Findings kontinuierlich auswerten und Sicherheitsanforderungen datenbasiert verbessern."
+      }
+    },
+    {
+      "id": "K4-04",
+      "areaId": "applications",
+      "question": "Werden Dienste und Softwarekomponenten getrennt und überwacht, um die Ausbreitung von Kompromittierungen zu begrenzen?",
+      "weight": 1,
+      "socioTechnical": [
+        "technical"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Dienste und Softwarekomponenten sind nicht getrennt oder überwacht. Kompromittierungen können sich unkontrolliert ausbreiten.",
+        "1": "Einzelne Dienste sind getrennt oder überwacht. Isolation und Monitoring bleiben uneinheitlich.",
+        "2": "Trennung und Überwachung sind für zentrale Dienste oder Komponenten definiert. Ausbreitungspfade werden teilweise begrenzt.",
+        "3": "Dienste und Komponenten sind breit isoliert, überwacht und auf Abhängigkeiten abgestimmt. Kompromittierungen werden schneller eingegrenzt.",
+        "4": "Isolation und Überwachung werden dynamisch oder automatisiert gesteuert. Ausbreitungsrisiken werden kontinuierlich analysiert und reduziert."
+      },
+      "implementationBarriers": "Diensttrennung und Laufzeitüberwachung werden durch monolithische Architekturen, unklare Abhängigkeiten und fehlende Telemetrie erschwert.",
+      "barrierReduction": "Abhängigkeiten erfassen, kritische Workloads priorisieren und Telemetrie schrittweise in Plattform- und Laufzeitumgebungen einführen.",
+      "recommendationsByTargetLevel": {
+        "1": "Dienste und Softwarekomponenten mit hohem Ausbreitungsrisiko identifizieren. Erste Trennungs- oder Überwachungsmassnahmen für kritische Komponenten festlegen.",
+        "2": "Trennungs- und Überwachungsvorgaben für zentrale Dienste definieren. Kommunikationsbeziehungen und Abhängigkeiten nachvollziehbar dokumentieren.",
+        "3": "Dienste und Komponenten breit getrennt betreiben und überwachen. Erkenntnisse aus Monitoring und Incident Response in Architekturentscheidungen einbeziehen.",
+        "4": "Komponententrennung, Laufzeitüberwachung und Reaktionsmechanismen kontinuierlich optimieren. Ausbreitungspfade automatisiert erkennen und begrenzen."
+      }
+    },
+    {
+      "id": "K4-05",
+      "areaId": "applications",
+      "question": "Werden Anwendungen und Dienste für Zugriffe von ausserhalb des internen Netzwerks sicher bereitgestellt, ohne die Netzzugehörigkeit als Vertrauensgrundlage zu verwenden?",
+      "weight": 3,
+      "socioTechnical": [
+        "technical",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Anwendungen setzen Netzwerkzugehörigkeit als Vertrauensgrundlage voraus. Sichere externe Bereitstellung fehlt.",
+        "1": "Einzelne externe Zugriffe sind über VPN oder Sonderlösungen möglich. Authentifizierung und Zugriffskontrolle sind uneinheitlich.",
+        "2": "Sichere Zugriffspfade für zentrale Anwendungen sind definiert. Remote-Zugriffe werden teilweise über ZTNA, Proxy oder vergleichbare Verfahren gesteuert.",
+        "3": "Anwendungen und Dienste sind breit netzwerkunabhängig erreichbar. Zugriffe werden anhand Identität, Gerät, Kontext und Policy kontrolliert.",
+        "4": "Anwendungszugriffe werden dynamisch, risikobasiert und ohne implizites Netzwerkvertrauen vermittelt. Zugriffspfade werden kontinuierlich optimiert."
+      },
+      "implementationBarriers": "Sichere externe Bereitstellung erfordert neue Zugriffsmuster. VPN-Abhängigkeiten, Legacy-Anwendungen und Nutzerakzeptanz bremsen die Umstellung.",
+      "barrierReduction": "ZTNA oder vergleichbare Zugriffsmuster pilotieren, Nutzerkommunikation früh planen und Legacy-Anwendungen mit Übergangslösungen behandeln.",
+      "recommendationsByTargetLevel": {
+        "1": "Externe Zugriffspfade auf Anwendungen erfassen und priorisieren. Erste sichere Bereitstellungswege ohne implizites Netzwerkvertrauen einführen.",
+        "2": "ZTNA-, Reverse-Proxy-, VPN- oder vergleichbare Zugriffsmuster für zentrale Anwendungen definieren. Authentifizierung, Autorisierung und Protokollierung regeln.",
+        "3": "Externe Zugriffe breit über zentrale Zugriffsdienste bereitstellen. Richtlinien, Monitoring und Supportprozesse über Anwendungen hinweg abstimmen.",
+        "4": "Externe Zugriffe risikobasiert und dynamisch steuern. Zugriffspfade kontinuierlich überwachen und Netzvertrauen schrittweise durch kontextbasierte Kontrollen ersetzen."
+      }
+    },
+    {
+      "id": "K4-06",
+      "areaId": "applications",
+      "question": "Werden Anwendungen durch vorgelagerte Schutz- und Vermittlungsmechanismen vor unautorisierten, schädlichen oder anwendungsspezifischen Zugriffen geschützt?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Anwendungen sind nicht durch vorgelagerte Schutz- oder Vermittlungsmechanismen geschützt.",
+        "1": "Einzelne Anwendungen nutzen WAF, API-Gateway oder Proxy punktuell. Schutzregeln sind uneinheitlich gepflegt.",
+        "2": "Schutzmechanismen für zentrale Anwendungen sind definiert. Beispiele sind WAF, API-Gateway, Reverse Proxy oder Application Proxy.",
+        "3": "Vorgelagerte Schutz- und Vermittlungsmechanismen sind breit etabliert. Regeln werden regelmässig geprüft und an Bedrohungen angepasst.",
+        "4": "Anwendungsschutz wird dynamisch, risikobasiert und automatisiert gesteuert. Erkennung, Blockierung und Policy-Anpassung sind integriert."
+      },
+      "implementationBarriers": "Vorgelagerte Schutzmechanismen wie WAF, API Gateway oder Reverse Proxy benötigen korrekte Applikationsprofile und laufende Regelpflege.",
+      "barrierReduction": "Applikationsprofile erstellen, Schutzregeln in Test- oder Beobachtungsmodi validieren und Regelpflege in Betriebsprozesse integrieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Anwendungen mit erhöhtem Angriffsrisiko priorisieren. Erste vorgelagerte Schutzmechanismen wie WAF, API-Gateway oder Reverse Proxy einführen.",
+        "2": "Schutz- und Vermittlungsmechanismen für zentrale Anwendungen definieren. Regeln, Protokollierung und Zuständigkeiten für Betrieb und Ausnahmen festlegen.",
+        "3": "WAF-, API-Gateway-, Proxy- oder vergleichbare Kontrollen breit auf relevante Anwendungen ausrollen. Angriffe und Fehlalarme regelmässig auswerten.",
+        "4": "Schutzregeln dynamisch an Bedrohungen und Anwendungskontext anpassen. Automatisierte Erkennung, Blockierung und Regelpflege kontinuierlich verbessern."
+      }
+    },
+    {
+      "id": "K4-07",
+      "areaId": "applications",
+      "question": "Wird der Zugriff auf Anwendungen vor der Nutzung autorisiert und über richtlinienbasierte Kontrollen durchgesetzt?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Zugriffe auf Anwendungen werden vor der Nutzung nicht autorisiert oder technisch durchgesetzt.",
+        "1": "Autorisierung besteht punktuell. Anwendungen setzen unterschiedliche oder manuelle Kontrollen ein.",
+        "2": "Richtlinienbasierte Zugriffskontrollen sind für zentrale Anwendungen definiert. Autorisierung erfolgt teilweise vor der Nutzung.",
+        "3": "Anwendungszugriffe werden breit vor der Nutzung autorisiert und über technische Kontrollen durchgesetzt. Ausnahmen sind dokumentiert.",
+        "4": "Autorisierung erfolgt dynamisch und kontextbezogen. Zugriffe werden automatisiert angepasst, eingeschränkt oder beendet."
+      },
+      "implementationBarriers": "Richtlinienbasierte Anwendungsautorisierung scheitert an fehlenden Rollenmodellen, heterogenen Anwendungen und uneinheitlicher Policy-Durchsetzung.",
+      "barrierReduction": "Autorisierungsmodelle pro kritischer Anwendung definieren und zentrale Policies schrittweise mit Rollen- und Berechtigungsprozessen verbinden.",
+      "recommendationsByTargetLevel": {
+        "1": "Zugriffspunkte und Berechtigungsmodelle priorisierter Anwendungen aufnehmen. Erste richtlinienbasierte Autorisierung vor der Nutzung umsetzen.",
+        "2": "Autorisierungsregeln und Enforcement-Punkte für zentrale Anwendungen definieren. Rollen, Attribute, Genehmigungen und Ausnahmen nachvollziehbar regeln.",
+        "3": "Anwendungszugriffe breit über zentrale Policies oder Application Controls durchsetzen. Berechtigungen und Zugriffsmuster regelmässig überprüfen.",
+        "4": "Autorisierungsentscheidungen dynamisch, kontext- oder risikobasiert steuern. Abweichungen und auffällige Zugriffsmuster automatisch behandeln."
+      }
+    },
+    {
+      "id": "K4-08",
+      "areaId": "applications",
+      "question": "Werden geschäftskritische Anwendungen und zugehörige Betriebsumgebungen kontinuierlich auf Bedrohungen und Verhaltensanomalien überwacht?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Geschäftskritische Anwendungen und Betriebsumgebungen werden nicht auf Bedrohungen oder Verhaltensanomalien überwacht.",
+        "1": "Monitoring besteht punktuell für einzelne Anwendungen. Analyse und Alarmierung sind manuell oder uneinheitlich.",
+        "2": "Monitoring für zentrale Anwendungen ist definiert. Logs, Profile oder Metriken werden teilweise auf Bedrohungen ausgewertet.",
+        "3": "Anwendungen und Betriebsumgebungen werden breit überwacht. Anomalien werden priorisiert und an Security Operations weitergegeben.",
+        "4": "Application Monitoring und Anomalieerkennung erfolgen kontinuierlich und automatisiert. Erkenntnisse steuern Schutzmassnahmen und Verbesserungen."
+      },
+      "implementationBarriers": "Anwendungsmonitoring benötigt geeignete Log- und Telemetriedaten aus den Anwendungen. Uneinheitliche Logformate erzeugen hohen Integrations- und Analyseaufwand.",
+      "barrierReduction": "Loganforderungen für kritische Anwendungen definieren, einheitliche Formate fördern und Onboarding in SIEM oder Monitoring-Plattformen priorisieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Log- und Telemetriedaten kritischer Anwendungen identifizieren. Erste Überwachung für priorisierte Anwendungen und Betriebsumgebungen einführen.",
+        "2": "Monitoring-Anforderungen, Logformate und Verantwortlichkeiten für zentrale Anwendungen definieren. Uneinheitliche Applikationslogs schrittweise normalisieren.",
+        "3": "Anwendungs- und Umgebungsdaten breit überwachen und mit SOC- oder Betriebsprozessen verbinden. Anomalien regelmässig analysieren und Regeln verbessern.",
+        "4": "Bedrohungs- und Verhaltensüberwachung kontinuierlich optimieren. Telemetrie, Baselines und Reaktionsprozesse soweit sinnvoll automatisiert verbinden."
+      }
+    },
+    {
+      "id": "K5-01",
+      "areaId": "data",
+      "question": "Ist ein Data-Governance-Programm etabliert, das Datenstrukturen, Verantwortlichkeiten, Datenlebenszyklus und Sicherheitsrichtlinien definiert, pflegt und deren Umsetzung überprüft?",
+      "weight": 3,
+      "socioTechnical": [
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app",
+        "kunde_mandant"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Ein Data-Governance-Programm ist nicht etabliert. Datenstrukturen, Verantwortlichkeiten und Richtlinien sind nicht definiert.",
+        "1": "Datenverantwortung oder Richtlinien bestehen punktuell. Datenlebenszyklus und Sicherheitsrichtlinien sind uneinheitlich geregelt.",
+        "2": "Data Governance ist für zentrale Datenbereiche definiert. Verantwortlichkeiten, Datenlebenszyklus und Sicherheitsrichtlinien sind teilweise gepflegt.",
+        "3": "Data Governance ist breit umgesetzt. Verantwortlichkeiten, Datenstrukturen und Richtlinien werden regelmässig überprüft und gesteuert.",
+        "4": "Data Governance wird kontinuierlich verbessert. Richtlinien, Lebenszyklus, Verantwortlichkeiten und Kontrollen sind integriert und teilweise automatisiert."
+      },
+      "implementationBarriers": "Data Governance erfordert Datenverantwortliche, einheitliche Regeln und dauerhafte Pflege. Fehlende Ownership erschwert die Umsetzung.",
+      "barrierReduction": "Data Owner festlegen, Governance-Regeln vereinheitlichen und Pflegeprozesse mit Fachbereichen und IT-Betrieb verankern.",
+      "recommendationsByTargetLevel": {
+        "1": "Datenverantwortliche, zentrale Datenbereiche und Mindestvorgaben für Data Governance festlegen. Erste Richtlinien und Lebenszyklusregeln für kritische Daten definieren.",
+        "2": "Data-Governance-Prozesse für zentrale Datenbestände etablieren. Verantwortlichkeiten, Lebenszyklus, Schutzanforderungen und Nachweise verbindlich regeln.",
+        "3": "Data Governance breit in Fachbereiche, IT-Betrieb und Sicherheitsprozesse integrieren. Umsetzung, Ausnahmen und Richtlinien regelmässig überprüfen.",
+        "4": "Data Governance kontinuierlich verbessern und durch Inventare, Klassifikation und Kontrollen unterstützen. Richtlinien und Datenlebenszyklus datenbasiert nachführen."
+      }
+    },
+    {
+      "id": "K5-02",
+      "areaId": "data",
+      "question": "Werden relevante Datenbestände systematisch inventarisiert und als Grundlage für angemessene Schutzmassnahmen genutzt?",
+      "weight": 3,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app",
+        "kunde_mandant"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Relevante Datenbestände werden nicht systematisch inventarisiert. Schutzmassnahmen stützen sich nicht auf eine Datenübersicht.",
+        "1": "Einzelne Datenbestände sind bekannt. Inventarisierung erfolgt manuell, uneinheitlich oder ohne Schutzbezug.",
+        "2": "Ein Dateninventar ist für zentrale Datenbestände definiert. Schutzmassnahmen wie Zugriff, Verschlüsselung oder Backup nutzen es teilweise.",
+        "3": "Datenbestände sind breit inventarisiert. Inventar, Klassifikation und Schutzmassnahmen werden regelmässig abgestimmt.",
+        "4": "Dateninventar wird kontinuierlich aktualisiert und mit Schutzmassnahmen verknüpft. Änderungen werden automatisiert erkannt oder nachgeführt."
+      },
+      "implementationBarriers": "Dateninventarisierung ist schwierig, wenn Datenbestände verteilt, schlecht dokumentiert oder ausserhalb zentraler Plattformen gespeichert sind.",
+      "barrierReduction": "Technische Discovery einsetzen, um Datenbestände automatisiert zu erkennen. Ergebnisse durch Data Owner fachlich prüfen und fehlende oder falsche Zuordnungen bereinigen.",
+      "recommendationsByTargetLevel": {
+        "1": "Kritische Datenbestände identifizieren und erste Data Owner benennen. Technische Discovery für priorisierte Speicherorte oder Anwendungen starten.",
+        "2": "Dateninventar und Zuordnung zu Data Ownern für zentrale Datenbestände definieren. Technische Funde fachlich validieren und Schutzmassnahmen ableiten.",
+        "3": "Dateninventarisierung breit über Anwendungen, Plattformen und Speicherorte ausrollen. Ergebnisse mit Klassifikation, Zugriffsschutz und Monitoring verknüpfen.",
+        "4": "Datenbestände kontinuierlich oder automatisiert erkennen und aktualisieren. Fachliche Validierung, Schutzmassnahmen und Änderungsprozesse dauerhaft verbinden."
+      }
+    },
+    {
+      "id": "K5-03",
+      "areaId": "data",
+      "question": "Werden Daten klassifiziert, gekennzeichnet und entsprechend ihrer Schutzbedürftigkeit behandelt?",
+      "weight": 3,
+      "socioTechnical": [
+        "technical",
+        "organizational",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app",
+        "kunde_mandant"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Daten werden nicht klassifiziert, gekennzeichnet oder nach Schutzbedarf behandelt.",
+        "1": "Klassifikation erfolgt punktuell oder manuell. Kennzeichnung und Behandlung sind uneinheitlich.",
+        "2": "Klassifikationsschema und Kennzeichnung sind für zentrale Daten definiert. Schutzmassnahmen werden teilweise daran ausgerichtet.",
+        "3": "Daten werden breit klassifiziert und gekennzeichnet. Schutzmassnahmen wie Zugriff, DLP oder Verschlüsselung folgen dem Schutzbedarf.",
+        "4": "Klassifikation und Labeling erfolgen kontinuierlich oder automatisiert. Schutzmassnahmen werden dynamisch anhand der Klassifikation gesteuert."
+      },
+      "implementationBarriers": "Datenklassifikation braucht klare Regeln, Data Owner und Mitarbeitendenakzeptanz. Manuelle Klassifikation ist fehleranfällig und aufwendig.",
+      "barrierReduction": "Datenklassifikation und Labels schrittweise einführen. Data Owner und Nutzende im korrekten Umgang mit klassifizierten Daten schulen und die Anwendung der Labels regelmässig überprüfen.",
+      "recommendationsByTargetLevel": {
+        "1": "Klassifikationsschema, Verantwortlichkeiten und erste Labels für kritische Daten festlegen. Data Owner und Nutzende gezielt einführen.",
+        "2": "Datenklassifikation und Labels für zentrale Datenbestände verbindlich definieren. Schulung, Label-Anwendung und Umgang mit Ausnahmen regeln.",
+        "3": "Klassifikation und Labels breit in Anwendungen, Speicherorte und Arbeitsprozesse integrieren. Anwendung der Labels regelmässig überprüfen.",
+        "4": "Klassifikation und Labeling soweit sinnvoll automatisieren. Label-Qualität, Fehlklassifikationen und Nutzerfeedback kontinuierlich auswerten."
+      }
+    },
+    {
+      "id": "K5-04",
+      "areaId": "data",
+      "question": "Wird der Zugriff auf Daten richtlinienbasiert und unter Berücksichtigung von Datensensitivität, Kontext sowie Antrags- und Genehmigungsprozessen gesteuert?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app",
+        "kunde_mandant"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Datenzugriffe werden nicht richtlinienbasiert gesteuert. Datensensitivität, Kontext oder Genehmigungen werden nicht berücksichtigt.",
+        "1": "Datenzugriffe werden punktuell über manuelle Berechtigungen gesteuert. Kontext und Genehmigungen sind uneinheitlich dokumentiert.",
+        "2": "Richtlinien für zentrale Datenzugriffe sind definiert. Datensensitivität und Genehmigungsprozesse werden teilweise berücksichtigt.",
+        "3": "Datenzugriffe werden breit nach Sensitivität, Kontext und Genehmigung gesteuert. Entscheidungen sind nachvollziehbar.",
+        "4": "Datenzugriffe werden dynamisch, risikobasiert und soweit sinnvoll automatisiert gesteuert. Rechte werden kontinuierlich überprüft und angepasst."
+      },
+      "implementationBarriers": "Dynamische Datenzugriffsregeln sind schwer umsetzbar, wenn Datensensitivität, Kontext, Berechtigungen und Bewilligungen nicht in Anwendungen verfügbar sind.",
+      "barrierReduction": "Datenzugriffsregeln zuerst für kritische Datenklassen definieren und mit Rollen, Anwendungskontext und Freigabeprozessen verbinden.",
+      "recommendationsByTargetLevel": {
+        "1": "Datensensitivität, Zugriffspfade und Genehmigungsverantwortliche für kritische Daten festlegen. Erste richtlinienbasierte Zugriffe einführen.",
+        "2": "Zugriffsregeln für zentrale Datenbestände definieren. Sensitivität, Kontext, Antrag und Genehmigung in nachvollziehbaren Prozessen verbinden.",
+        "3": "Datenzugriffe breit richtlinienbasiert steuern und regelmässig überprüfen. Fachliche Genehmigungen, technische Kontrollen und Monitoring zusammenführen.",
+        "4": "Datenzugriffe dynamisch und kontextbasiert steuern. Sensitivität, Risiko, Nutzungsmuster und Genehmigungsprozesse kontinuierlich einbeziehen."
+      }
+    },
+    {
+      "id": "K5-05",
+      "areaId": "data",
+      "question": "Werden Zugriffe und Aktivitäten auf Datenbestände risikobasiert überwacht, um unzulässige oder auffällige Nutzung zu erkennen?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Zugriffe und Aktivitäten auf Datenbestände werden nicht risikobasiert überwacht.",
+        "1": "Überwachung erfolgt punktuell für einzelne Datenbestände oder Anwendungen. Auffälligkeiten werden manuell geprüft.",
+        "2": "Risikobasierte Überwachung ist für zentrale Datenbestände definiert. Unzulässige oder auffällige Nutzung wird teilweise erkannt.",
+        "3": "Datenzugriffe werden breit risikobasiert überwacht. Auffälligkeiten werden priorisiert, untersucht und dokumentiert.",
+        "4": "Überwachung erfolgt kontinuierlich und automatisiert. Auffällige Nutzung löst dynamische Kontrollen, Alarme oder Reaktionsmassnahmen aus."
+      },
+      "implementationBarriers": "Risikobasiertes Datenmonitoring erzeugt Datenschutz-, Datenqualitäts- und Fehlalarmprobleme, wenn Nutzungskontext nicht sauber definiert ist.",
+      "barrierReduction": "Monitoring-Zweck, Datenschutzgrenzen und Eskalationsregeln definieren. Nutzungsmuster schrittweise auswerten und Fehlalarme iterativ reduzieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Kritische Datenbestände und relevante Zugriffsdatenquellen bestimmen. Erste Überwachung für besonders sensible oder exponierte Daten einrichten.",
+        "2": "Monitoring-Regeln und Verantwortlichkeiten für zentrale Datenbestände definieren. Auffällige Nutzung, Alarmierung und Datenschutzanforderungen regeln.",
+        "3": "Datenzugriffe breit risikobasiert überwachen und mit Security Operations verbinden. Unzulässige oder auffällige Nutzung regelmässig analysieren.",
+        "4": "Überwachung von Datenzugriffen kontinuierlich optimieren. Baselines, Risikoindikatoren und automatisierte Reaktionen bei auffälliger Nutzung weiterentwickeln."
+      }
+    },
+    {
+      "id": "K5-06",
+      "areaId": "data",
+      "question": "Werden DLP-Kontrollen eingesetzt, um den Abfluss sensibler Informationen zu überwachen, zu verhindern oder Alarme auszulösen?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app",
+        "kunde_mandant"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "DLP-Kontrollen zum Schutz sensibler Informationen fehlen.",
+        "1": "DLP wird punktuell eingesetzt, etwa für einzelne Kanäle oder Datentypen. Regeln und Alarme sind uneinheitlich.",
+        "2": "DLP-Kontrollen sind für zentrale Datenklassen oder Kanäle definiert. Abfluss wird teilweise überwacht oder alarmiert.",
+        "3": "DLP ist breit über relevante Kanäle umgesetzt. Verstösse werden erkannt, blockiert oder nachvollziehbar bearbeitet.",
+        "4": "DLP wird kontinuierlich optimiert und mit Klassifikation, Kontext und Reaktion verknüpft. Regeln werden risikobasiert angepasst."
+      },
+      "implementationBarriers": "DLP-Kontrollen können Arbeitsabläufe beeinträchtigen. Fehlalarme, Umgehungsversuche und Akzeptanzprobleme entstehen besonders bei ungenauer Klassifikation.",
+      "barrierReduction": "DLP-Regeln schrittweise einführen, Warnmodus nutzen und betroffene Fachbereiche in Regelabstimmung und Ausnahmen einbeziehen.",
+      "recommendationsByTargetLevel": {
+        "1": "Sensible Datenflüsse und kritische Kanäle priorisieren. Erste DLP-Regeln mit klaren Ausnahmen und Kommunikationsmassnahmen einführen.",
+        "2": "DLP-Richtlinien für zentrale Datenklassen und Kanäle definieren. Fehlalarme, Ausnahmeprozesse und Nutzerkommunikation verbindlich regeln.",
+        "3": "DLP-Kontrollen breit über relevante Kanäle ausrollen und mit Security Operations verbinden. Umgehungen, Fehlalarme und Akzeptanzprobleme regelmässig bearbeiten.",
+        "4": "DLP-Kontrollen kontinuierlich verbessern und soweit sinnvoll automatisiert reagieren lassen. Regelqualität, Nutzerfeedback und Geschäftsprozesse laufend abstimmen."
+      }
+    },
+    {
+      "id": "K5-07",
+      "areaId": "data",
+      "question": "Werden Daten während der Übertragung entsprechend ihrem Schutzbedarf angemessen verschlüsselt?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Daten während der Übertragung werden nicht angemessen verschlüsselt.",
+        "1": "Verschlüsselung in Übertragung besteht punktuell. Verfahren und Durchsetzung sind uneinheitlich.",
+        "2": "Verschlüsselungsanforderungen für zentrale Übertragungswege sind definiert. Schutzbedarf wird teilweise berücksichtigt.",
+        "3": "Datenübertragung ist breit entsprechend Schutzbedarf verschlüsselt. Protokolle, Zertifikate und Ausnahmen werden regelmässig überprüft.",
+        "4": "Verschlüsselung in Übertragung wird zentral verwaltet und kontinuierlich verbessert. Schlüssel und Zertifikate werden möglichst automatisiert gesteuert."
+      },
+      "implementationBarriers": "Transportverschlüsselung wird durch Altprotokolle, Zertifikatsmanagement und unterschiedliche Schutzanforderungen der Daten erschwert.",
+      "barrierReduction": "Transportverschlüsselung nach Kommunikationskritikalität priorisieren, Zertifikatsprozesse standardisieren und Altprotokolle kontrolliert ablösen.",
+      "recommendationsByTargetLevel": {
+        "1": "Unverschlüsselte Übertragungswege für schutzbedürftige Daten identifizieren. Mindestanforderungen an TLS, Zertifikate und Protokolle festlegen.",
+        "2": "Verschlüsselungsvorgaben für zentrale Datenübertragungen definieren. Zertifikatsmanagement, Protokollhärtung und Ausnahmen dokumentiert regeln.",
+        "3": "Datenübertragung breit entsprechend Schutzbedarf verschlüsseln. Zertifikate, Schnittstellen und externe Verbindungen regelmässig überprüfen.",
+        "4": "Verschlüsselung in Übertragung kontinuierlich aktuell halten. Zertifikatslebenszyklus, Protokollprüfung und Abweichungserkennung soweit sinnvoll automatisieren."
+      }
+    },
+    {
+      "id": "K5-08",
+      "areaId": "data",
+      "question": "Werden ruhende Daten entsprechend ihrem Schutzbedarf angemessen verschlüsselt?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Ruhende Daten werden nicht angemessen verschlüsselt.",
+        "1": "Verschlüsselung ruhender Daten besteht punktuell, etwa auf einzelnen Systemen oder Datenträgern.",
+        "2": "Anforderungen für ruhende Daten sind definiert. Verschlüsselung wird für zentrale Datenbestände oder Plattformen teilweise umgesetzt.",
+        "3": "Ruhende Daten sind breit nach Schutzbedarf verschlüsselt. Schlüssel, Ausnahmen und Verantwortlichkeiten werden regelmässig überprüft.",
+        "4": "Verschlüsselung ruhender Daten wird kontinuierlich optimiert. Schlüsselmanagement und Richtliniendurchsetzung sind soweit sinnvoll automatisiert."
+      },
+      "implementationBarriers": "Verschlüsselung ruhender Daten erfordert Schlüsselmanagement, Plattformintegration und klare Zuständigkeiten für Datenbestände.",
+      "barrierReduction": "Schlüsselmanagement zentral regeln, Verantwortlichkeiten definieren und Verschlüsselung nach Schutzbedarf und Plattformfähigkeit priorisieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Ruhende Daten mit hohem Schutzbedarf identifizieren. Erste Verschlüsselungsvorgaben für priorisierte Speicherorte, Datenbanken oder Plattformen festlegen.",
+        "2": "Verschlüsselung ruhender Daten für zentrale Datenbestände definieren. Schlüsselmanagement, Verantwortlichkeiten und Ausnahmen verbindlich regeln.",
+        "3": "Verschlüsselung ruhender Daten breit über relevante Plattformen und Datenbestände umsetzen. Schlüsselverwaltung und Zugriffe regelmässig überprüfen.",
+        "4": "Verschlüsselung und Schlüsselmanagement kontinuierlich überwachen und automatisieren. Rotation, Zugriffsschutz und Abweichungen risikobasiert steuern."
+      }
+    },
+    {
+      "id": "K5-09",
+      "areaId": "data",
+      "question": "Werden Daten regelmässig und soweit möglich automatisiert gesichert und die Sicherungsprozesse überwacht?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Daten werden nicht regelmässig gesichert oder Sicherungsprozesse sind nicht überwacht.",
+        "1": "Datensicherungen erfolgen punktuell oder manuell. Überwachung und Fehlerbehandlung sind uneinheitlich.",
+        "2": "Sicherungsprozesse sind für zentrale Datenbestände definiert. Backups werden teilweise automatisiert und überwacht.",
+        "3": "Daten werden breit regelmässig gesichert. Sicherungsprozesse werden überwacht, Fehler werden bearbeitet und Nachweise gepflegt.",
+        "4": "Datensicherung ist weitgehend automatisiert und kontinuierlich überwacht. Abweichungen lösen Alarme und definierte Reaktionen aus."
+      },
+      "implementationBarriers": "Automatisierte Sicherungen scheitern an heterogenen Plattformen, Datenwachstum, fehlender Überwachung und unklaren Wiederherstellungszielen.",
+      "barrierReduction": "Backup-Abdeckung und Restore-Ziele definieren, Überwachung automatisieren und kritische Services priorisiert in Testwiederherstellungen einbeziehen.",
+      "recommendationsByTargetLevel": {
+        "1": "Kritische Datenbestände und Sicherungsziele bestimmen. Erste regelmässige Sicherungen einrichten und deren Durchführung überwachen.",
+        "2": "Sicherungsprozesse für zentrale Datenbestände definieren. Verantwortlichkeiten, Zeitpläne, Monitoring und Fehlerbehandlung verbindlich regeln.",
+        "3": "Datensicherungen breit automatisieren und überwachen. Backup-Erfolg, Fehlermeldungen und Abweichungen regelmässig prüfen und nachbearbeiten.",
+        "4": "Sicherungsprozesse kontinuierlich optimieren. Backup-Monitoring, Kapazität, Automatisierung und Wiederanlaufanforderungen laufend abstimmen."
+      }
+    },
+    {
+      "id": "K5-10",
+      "areaId": "data",
+      "question": "Werden Backup-Daten getrennt oder unveränderbar gespeichert und wird die Wiederherstellung regelmässig getestet?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Backup-Daten werden nicht getrennt oder unveränderbar gespeichert. Wiederherstellungstests fehlen.",
+        "1": "Einzelne Backups sind getrennt gespeichert oder getestet. Isolation, Unveränderbarkeit und Tests sind uneinheitlich.",
+        "2": "Anforderungen an Backup-Isolation, Unveränderbarkeit und Wiederherstellungstests sind für zentrale Services definiert.",
+        "3": "Backups sind breit getrennt, unveränderbar oder besonders geschützt. Wiederherstellung wird regelmässig getestet und dokumentiert.",
+        "4": "Backup-Schutz und Wiederherstellung werden kontinuierlich optimiert. Tests, Monitoring und Wiederanlaufplanung sind integriert."
+      },
+      "implementationBarriers": "Isolierte oder unveränderbare Backups benötigen separate Infrastruktur, klare Restore-Verfahren und regelmässige Tests.",
+      "barrierReduction": "Backup-Isolation technisch absichern, Restore-Verfahren dokumentieren und Wiederherstellungstests für kritische Daten regelmässig durchführen.",
+      "recommendationsByTargetLevel": {
+        "1": "Kritische Backup-Daten priorisieren und erste getrennte oder unveränderbare Speicherung umsetzen. Wiederherstellung für ausgewählte Systeme testen.",
+        "2": "Backup-Isolation, Unveränderbarkeit und Wiederherstellungstests für zentrale Daten und Systeme definieren. Testnachweise und Verantwortlichkeiten festlegen.",
+        "3": "Getrennte oder unveränderbare Backups breit etablieren und regelmässig testen. Wiederherstellungsziele mit Service- und Applikationsanforderungen abstimmen.",
+        "4": "Backup-Resilienz kontinuierlich validieren. Wiederherstellungstests, Isolation, Ransomware-Schutz und Automatisierung regelmässig verbessern."
+      }
+    },
+    {
+      "id": "K6-01",
+      "areaId": "secops",
+      "question": "Sind SOC- oder Security-Operations-Fähigkeiten etabliert, um Sicherheitsvorfälle kontinuierlich zu erkennen, zu analysieren und zeitnah darauf zu reagieren?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation"
+      ],
+      "explanation": "Für den gewählten Geltungsbereich ist dieses Bewertungskriterium nicht relevant.",
+      "levelDescriptions": {
+        "0": "SOC- oder Security-Operations-Fähigkeiten zur Erkennung, Analyse und Reaktion fehlen.",
+        "1": "Security Operations bestehen punktuell, etwa durch einzelne Tools oder Bereitschaften. Analyse und Reaktion sind uneinheitlich.",
+        "2": "SOC- oder Security-Operations-Prozesse sind für zentrale Ereignisse definiert. Zuständigkeiten und Alarmwege sind teilweise umgesetzt.",
+        "3": "Security Operations sind breit etabliert. Ereignisse werden kontinuierlich überwacht, analysiert, priorisiert und zeitnah bearbeitet.",
+        "4": "SOC-Fähigkeiten sind integriert, messbar und kontinuierlich verbessert. Automatisierung und Threat Intelligence unterstützen Analyse und Reaktion."
+      },
+      "implementationBarriers": "SOC-Fähigkeiten benötigen Fachpersonal, geeignete Tools, abgestimmte Prozesse und kontinuierlichen Betrieb. Kosten und Ressourcenmangel erschweren den Aufbau.",
+      "barrierReduction": "SOC-Fähigkeiten schrittweise aufbauen, kritische Use Cases priorisieren und Ressourcenbedarf über Betrieb, Automatisierung oder externe Unterstützung decken.",
+      "recommendationsByTargetLevel": {
+        "1": "Mindestfähigkeiten für Erkennung, Analyse und Reaktion festlegen. Erste SOC- oder Security-Operations-Prozesse für kritische Ereignisse einführen.",
+        "2": "Betriebsmodell, Rollen, Meldewege und Reaktionszeiten für zentrale Security-Operations-Fähigkeiten definieren. Kosten und Betriebsabdeckung planen.",
+        "3": "Security Operations breit etablieren und mit Monitoring, Incident Response und Fachbereichen verbinden. Erkennung und Reaktion regelmässig überprüfen.",
+        "4": "SOC-Fähigkeiten kontinuierlich optimieren. Automatisierung, Threat Intelligence, Messgrössen und Lessons Learned in den Betrieb integrieren."
+      }
+    },
+    {
+      "id": "K6-02",
+      "areaId": "secops",
+      "question": "Werden sicherheitsrelevante Aktivitäten, privilegierte Aktionen und die Nutzung von Sicherheitstools nachvollziehbar protokolliert und bei sensitiven Aktionen begründet?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Sicherheitsrelevante Aktivitäten, privilegierte Aktionen und Sicherheitstool-Nutzung werden nicht nachvollziehbar protokolliert. Sensitive Aktionen sind nicht begründet.",
+        "1": "Protokollierung erfolgt punktuell. Begründungen für sensitive Aktionen sind uneinheitlich oder nur in einzelnen Systemen verfügbar.",
+        "2": "Protokollierungsanforderungen sind für zentrale Aktivitäten, Administrationshandlungen und Sicherheitstools definiert. Begründungen werden teilweise erfasst.",
+        "3": "Protokolle und Begründungen sind breit verfügbar, geschützt und überprüfbar. Sensitive Aktionen werden regelmässig kontrolliert und in Security Operations berücksichtigt.",
+        "4": "Protokollierung, Begründungen und Auswertung erfolgen kontinuierlich. Auffällige Aktivitäten werden automatisch erkannt und an Reaktionsprozesse übergeben."
+      },
+      "implementationBarriers": "Nachvollziehbare Protokollierung scheitert häufig an unvollständigen Logs, fehlender Integritätssicherung, Datenschutzanforderungen und uneinheitlicher Erfassung sensitiver Aktionen.",
+      "barrierReduction": "Loganforderungen und Aufbewahrung definieren, Integrität schützen und sensitive Aktionen mit Kontroll- oder Review-Prozessen verbinden.",
+      "recommendationsByTargetLevel": {
+        "1": "Sicherheitsrelevante Aktivitäten und sensitive Aktionen festlegen. Erste zentrale Logs erfassen und Schutzanforderungen für Integrität und Datenschutz klären.",
+        "2": "Logging-Anforderungen für zentrale Systeme, privilegierte Aktionen und Sicherheitstools definieren. Begründungen für sensitive Aktionen nachvollziehbar erfassen.",
+        "3": "Protokollierung breit über relevante Plattformen integrieren. Log-Vollständigkeit, Integrität, Zugriffsschutz und Datenschutz regelmässig überprüfen.",
+        "4": "Logging, Begründungen und Auswertung kontinuierlich verbessern. Auffällige Aktivitäten automatisch erkennen und an Reaktionsprozesse übergeben."
+      }
+    },
+    {
+      "id": "K6-03",
+      "areaId": "secops",
+      "question": "Sind kritische Management-, Kommunikations-, Detection- und Response-Fähigkeiten so getrennt oder unabhängig bereitgestellt, dass sie auch während Sicherheitsvorfällen nutzbar bleiben?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation"
+      ],
+      "explanation": "Für den gewählten Geltungsbereich ist dieses Bewertungskriterium nicht relevant.",
+      "levelDescriptions": {
+        "0": "Kritische Management-, Kommunikations-, Detection- oder Response-Fähigkeiten sind im Vorfall nicht getrennt oder nutzbar.",
+        "1": "Einzelne Notfallzugänge oder Kommunikationswege bestehen. Trennung und Nutzung im Vorfall sind uneinheitlich geregelt.",
+        "2": "Kritische Fähigkeiten und alternative Zugriffspfade sind für zentrale Vorfälle definiert. Tests erfolgen teilweise.",
+        "3": "Management-, Kommunikations-, Detection- und Response-Fähigkeiten sind breit getrennt oder unabhängig verfügbar und regelmässig getestet.",
+        "4": "Kritische Fähigkeiten sind resilient, überwacht und kontinuierlich verbessert. Failover, Isolation und Notfallzugriffe sind soweit sinnvoll automatisiert."
+      },
+      "implementationBarriers": "Unabhängige Management- und Response-Fähigkeiten erfordern separate Kommunikations- und Administrationswege. Dies verursacht Kosten und zusätzlichen Betriebsaufwand.",
+      "barrierReduction": "Kritische Managementpfade identifizieren, alternative Kommunikationswege testen und Notfalladministration in Incident-Response-Übungen einbinden.",
+      "recommendationsByTargetLevel": {
+        "1": "Kritische Management-, Kommunikations-, Detection- und Response-Fähigkeiten identifizieren. Erste unabhängige Zugriffs- oder Kommunikationswege für Vorfälle bereitstellen.",
+        "2": "Trennung und Verfügbarkeit zentraler Incident-Fähigkeiten definieren. Out-of-Band-Zugänge, Notfallkommunikation und Verantwortlichkeiten verbindlich regeln.",
+        "3": "Kritische Incident-Fähigkeiten breit getrennt oder unabhängig betreiben. Zugriffe, Kommunikation und Detection während Vorfällen regelmässig testen.",
+        "4": "Resilienz von Management, Kommunikation und Response kontinuierlich validieren. Notfallzugänge, Übungen und technische Trennung laufend verbessern."
+      }
+    },
+    {
+      "id": "K6-04",
+      "areaId": "secops",
+      "question": "Werden Netzwerkverkehr und Netzwerkmetadaten mit geeigneten NDR- oder Analyseverfahren überwacht, um Angriffe und ungewöhnliche Kommunikationsmuster zu erkennen?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation"
+      ],
+      "explanation": "Für den gewählten Geltungsbereich ist dieses Bewertungskriterium nicht relevant.",
+      "levelDescriptions": {
+        "0": "Netzwerkverkehr und Metadaten werden nicht mit NDR- oder Analyseverfahren überwacht.",
+        "1": "Netzwerkanalyse erfolgt punktuell. Ungewöhnliche Kommunikationsmuster werden manuell oder nur in Teilbereichen erkannt.",
+        "2": "NDR- oder Analyseverfahren sind für zentrale Netzwerkbereiche definiert. Angriffe und Anomalien werden teilweise erkannt.",
+        "3": "Netzwerkverkehr und Metadaten werden breit analysiert. Ungewöhnliche Muster werden priorisiert und an Security Operations übergeben.",
+        "4": "NDR und Analyseverfahren arbeiten kontinuierlich und automatisiert. Erkenntnisse steuern Detection, Reaktion und Regeloptimierung."
+      },
+      "implementationBarriers": "NDR benötigt geeignete Sensorik, Netzwerktransparenz und Analysekompetenz. Verschlüsselung, Datenmengen und fehlende Baselines erschweren die Erkennung.",
+      "barrierReduction": "Netzwerktransparenz durch geeignete Datenquellen verbessern, etwa Flow-Daten, DNS-Logs oder NDR-Sensoren. Erkennungsregeln mit bekanntem Normalverhalten kalibrieren und regelmässig validieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Geeignete Datenquellen für Netzwerktransparenz bestimmen, etwa Flow-Daten, DNS-Logs oder NDR-Sensoren. Erste kritische Kommunikationsmuster überwachen.",
+        "2": "NDR- oder Analyseverfahren für zentrale Netzbereiche definieren. Baseline-Bildung, Alarmierung und False-Positive-Behandlung verbindlich regeln.",
+        "3": "Netzwerkverkehr und Metadaten breit überwachen. Erkennungsregeln mit bekanntem Normalverhalten kalibrieren und regelmässig validieren.",
+        "4": "NDR- und Analyseverfahren kontinuierlich optimieren. Baselines, Threat Intelligence und automatisierte Reaktionsprozesse miteinander verbinden."
+      }
+    },
+    {
+      "id": "K6-05",
+      "areaId": "secops",
+      "question": "Werden Täuschungstechnologien oder vergleichbare Detektionsmechanismen genutzt, um Angreiferaktivitäten frühzeitig zu erkennen?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Täuschungstechnologien oder vergleichbare Detektionsmechanismen werden nicht eingesetzt.",
+        "1": "Einzelne Täuschungs- oder Honeypot-Mechanismen werden punktuell betrieben. Auswertung und Reaktion sind uneinheitlich.",
+        "2": "Täuschungs- oder vergleichbare Detektionsmechanismen sind für ausgewählte Umgebungen definiert. Alarme werden teilweise bearbeitet.",
+        "3": "Deception-Technologien oder vergleichbare Mechanismen sind breit in Detection-Prozesse integriert. Erkenntnisse fliessen in Reaktion und Lagebild.",
+        "4": "Detektionsmechanismen werden kontinuierlich optimiert und an Bedrohungen angepasst. Alarme lösen automatisierte Analysen oder Reaktionen aus."
+      },
+      "implementationBarriers": "Täuschungs-Technologien erfordern spezialisiertes Know-how und saubere Integration in Detection- und Response-Prozesse.",
+      "barrierReduction": "Täuschungs-Technologien nur für geeignete Hochrisikobereiche prüfen und Alarme klar in SOC- und Incident-Prozesse integrieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Geeignete Einsatzbereiche für Deception oder vergleichbare Detektionsmechanismen festlegen. Erste Honeypots, Täuschungsobjekte oder Canary Tokens pilotieren.",
+        "2": "Täuschungsmechanismen für zentrale Netzbereiche oder Anwendungen definieren. Alarmierung, Betrieb und Reaktion auf ausgelöste Hinweise regeln.",
+        "3": "Deception-Mechanismen breit in Detection- und Response-Prozesse integrieren. Ausgelöste Hinweise regelmässig analysieren und Regeln verbessern.",
+        "4": "Täuschungstechnologien kontinuierlich an Angriffsverhalten anpassen. Erkennung, Alarmierung und Response-Automatisierung laufend optimieren."
+      }
+    },
+    {
+      "id": "K6-06",
+      "areaId": "secops",
+      "question": "Werden erkannte Anomalien und Sicherheitsvorfälle über definierte Playbooks und automatisierte Reaktionsmassnahmen behandelt?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation"
+      ],
+      "explanation": "Für den gewählten Geltungsbereich ist dieses Bewertungskriterium nicht relevant.",
+      "levelDescriptions": {
+        "0": "Für Anomalien und Sicherheitsvorfälle bestehen keine definierten Playbooks oder automatisierten Reaktionsmassnahmen.",
+        "1": "Playbooks oder Reaktionen bestehen punktuell. Massnahmen erfolgen manuell, uneinheitlich oder abhängig von Einzelpersonen.",
+        "2": "Playbooks sind für zentrale Vorfalltypen definiert. Erste automatisierte Massnahmen, etwa Quarantäne, Isolation oder Ticketing, sind teilweise umgesetzt.",
+        "3": "Playbooks und Reaktionsmassnahmen sind breit etabliert. Anomalien und Vorfälle werden nachvollziehbar priorisiert und behandelt.",
+        "4": "Playbooks werden kontinuierlich verbessert und über SOAR oder vergleichbare Mechanismen automatisiert unterstützt. Ergebnisse fliessen in Detection und Prävention zurück."
+      },
+      "implementationBarriers": "Playbooks und automatisierte Reaktionen benötigen abgestimmte Prozesse, zuverlässige Auslöser und Vertrauen in automatisierte Massnahmen.",
+      "barrierReduction": "Playbooks zuerst für klar abgegrenzte Use Cases erstellen, manuelle Freigaben einbauen und Automatisierung schrittweise nach Wirksamkeit ausbauen.",
+      "recommendationsByTargetLevel": {
+        "1": "Wiederkehrende Anomalien und Sicherheitsvorfälle priorisieren. Erste Playbooks mit Rollen, Eskalation und manuellen Reaktionsschritten festlegen.",
+        "2": "Playbooks und Reaktionsmassnahmen für zentrale Vorfalltypen definieren. Auslöser, Verantwortlichkeiten und Freigabepunkte nachvollziehbar regeln.",
+        "3": "Playbooks breit mit SOC-, IT- und Fachprozessen verbinden. Automatisierte Reaktionsschritte kontrolliert einführen und regelmässig testen.",
+        "4": "Playbooks und Reaktionen kontinuierlich verbessern. Automatisierung, Lessons Learned und Risikoindikatoren dynamisch in die Vorfallsbehandlung einbinden."
+      }
+    },
+    {
+      "id": "K6-07",
+      "areaId": "secops",
+      "question": "Werden Erkennungs- und Reaktionsfähigkeiten regelmässig durch Red-Team-Übungen, Purple-Team-Übungen oder Angriffssimulationen überprüft?",
+      "weight": 1,
+      "socioTechnical": [
+        "technical",
+        "organizational",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Erkennungs- und Reaktionsfähigkeiten werden nicht durch Übungen oder Angriffssimulationen überprüft.",
+        "1": "Übungen erfolgen punktuell oder ad hoc. Erkenntnisse werden nicht systematisch nachverfolgt.",
+        "2": "Red-Team-, Purple-Team- oder Angriffssimulationen sind für ausgewählte Szenarien definiert. Verbesserungsmassnahmen werden teilweise abgeleitet.",
+        "3": "Erkennungs- und Reaktionsfähigkeiten werden regelmässig und strukturiert getestet. Erkenntnisse werden priorisiert und umgesetzt.",
+        "4": "Übungen sind risikobasiert, wiederkehrend und in Verbesserungsprozesse integriert. Ergebnisse verbessern Detection, Playbooks und Architektur kontinuierlich."
+      },
+      "implementationBarriers": "Red- und Purple-Team-Übungen benötigen Ressourcen, Fachwissen, Managementunterstützung und eine Kultur, die Schwachstellen offen bearbeitet.",
+      "barrierReduction": "Übungen mit klaren Zielen planen, Management einbinden und Findings in Verbesserungsprozesse statt Schuldzuweisungen überführen.",
+      "recommendationsByTargetLevel": {
+        "1": "Erste Red-Team-, Purple-Team- oder Angriffssimulationen für kritische Szenarien planen. Ziel, Umfang und Verantwortlichkeiten klar festlegen.",
+        "2": "Übungsformate, Frequenz und Nachbearbeitung für zentrale Erkennungs- und Reaktionsfähigkeiten definieren. Erkenntnisse als Massnahmen erfassen.",
+        "3": "Übungen regelmässig über relevante Teams, Services und Angriffspfade durchführen. Findings in Detection-, Response- und Verbesserungsprozesse überführen.",
+        "4": "Angriffssimulationen kontinuierlich an Bedrohungslage und Schwachstellen anpassen. Purple-Team-Lernen und automatisierte Messgrössen in den Betrieb integrieren."
+      }
+    },
+    {
+      "id": "K7-01",
+      "areaId": "governance",
+      "question": "Sind Sicherheitsrichtlinien, -prozesse und -standards in einem Managementsystem definiert, gepflegt und regelmässig überprüft?",
+      "weight": 2,
+      "socioTechnical": [
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "kunde_mandant"
+      ],
+      "explanation": "Für den gewählten Geltungsbereich ist dieses Bewertungskriterium nicht relevant.",
+      "levelDescriptions": {
+        "0": "Sicherheitsrichtlinien, Prozesse und Standards sind nicht in einem Managementsystem definiert.",
+        "1": "Einzelne Richtlinien oder Prozesse bestehen. Pflege, Freigabe und Überprüfung sind uneinheitlich.",
+        "2": "Ein Managementsystem mit zentralen Sicherheitsrichtlinien, Prozessen und Standards ist definiert. Pflege erfolgt teilweise regelmässig.",
+        "3": "Sicherheitsrichtlinien und Prozesse sind breit etabliert, versioniert und regelmässig überprüft. Verantwortlichkeiten sind klar geregelt.",
+        "4": "Das Managementsystem wird kontinuierlich verbessert. Wirksamkeit, Risiken und Änderungen steuern die Aktualisierung der Vorgaben."
+      },
+      "implementationBarriers": "Managementsysteme scheitern an fehlender Governance, unklarer Verantwortung und geringer Pflege der Richtlinienlandschaft.",
+      "barrierReduction": "Governance-Struktur, Dokumentenverantwortung und Review-Zyklen festlegen. Sicherheitsrichtlinien mit bestehenden Managementsystemen verbinden.",
+      "recommendationsByTargetLevel": {
+        "1": "Zentrale Sicherheitsrichtlinien, Prozesse und Standards erfassen. Verantwortliche und Mindestpflege für priorisierte Regelwerke festlegen.",
+        "2": "Ein Managementsystem für zentrale Sicherheitsrichtlinien und -prozesse definieren. Versionierung, Freigabe, Pflege und Überprüfung verbindlich regeln.",
+        "3": "Sicherheitsrichtlinien und Prozesse breit in Governance, Betrieb und Compliance integrieren. Umsetzung und Wirksamkeit regelmässig überprüfen.",
+        "4": "Managementsystem kontinuierlich verbessern. Änderungen, Kontrollen, Kennzahlen und Auditergebnisse systematisch in Richtlinien und Prozesse zurückführen."
+      }
+    },
+    {
+      "id": "K7-02",
+      "areaId": "governance",
+      "question": "Werden Sicherheitsrichtlinien und -prozesse regelmässig durch Kontrollen oder Audits überprüft, um Abweichungen zu erkennen und zu beheben?",
+      "weight": 2,
+      "socioTechnical": [
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "kunde_mandant"
+      ],
+      "explanation": "Für den gewählten Geltungsbereich ist dieses Bewertungskriterium nicht relevant.",
+      "levelDescriptions": {
+        "0": "Sicherheitsrichtlinien und Prozesse werden nicht durch Kontrollen oder Audits überprüft.",
+        "1": "Kontrollen erfolgen punktuell oder anlassbezogen. Abweichungen werden uneinheitlich dokumentiert und behandelt.",
+        "2": "Regelmässige Kontrollen oder Audits sind für zentrale Vorgaben definiert. Abweichungen werden teilweise nachverfolgt.",
+        "3": "Kontrollen und Audits sind breit etabliert. Abweichungen werden priorisiert, behoben und in Verbesserungsprozesse überführt.",
+        "4": "Compliance-Überwachung ist risikobasiert und soweit sinnvoll automatisiert. Ergebnisse steuern kontinuierliche Verbesserung und Governance."
+      },
+      "implementationBarriers": "Audits und Kontrollen werden erschwert, wenn Nachweise verteilt sind und Abweichungen nicht in Verbesserungsprozesse zurückgeführt werden.",
+      "barrierReduction": "Nachweise zentralisieren, Kontrollverantwortliche definieren und Findings verbindlich in Massnahmen- und Verbesserungsprozesse überführen.",
+      "recommendationsByTargetLevel": {
+        "1": "Erste Kontrollen oder Audits für kritische Sicherheitsrichtlinien festlegen. Abweichungen erfassen und Verantwortliche für Nachbearbeitung benennen.",
+        "2": "Kontroll- und Auditverfahren für zentrale Sicherheitsprozesse definieren. Prüffrequenz, Nachweise und Abweichungsbehandlung verbindlich regeln.",
+        "3": "Kontrollen und Audits breit auf relevante Richtlinien und Prozesse anwenden. Abweichungen priorisieren und Behebung regelmässig nachverfolgen.",
+        "4": "Kontroll- und Auditprozesse kontinuierlich risikobasiert verbessern. Erkenntnisse automatisiert auswerten und in Governance-Verbesserungen überführen."
+      }
+    },
+    {
+      "id": "K7-03",
+      "areaId": "governance",
+      "question": "Ist ein definierter Change-Management-Prozess für reguläre, dringende und sicherheitsrelevante Änderungen etabliert?",
+      "weight": 1,
+      "socioTechnical": [
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app",
+        "kunde_mandant"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Ein definierter Change-Management-Prozess für reguläre, dringende und sicherheitsrelevante Änderungen fehlt.",
+        "1": "Änderungen werden punktuell oder manuell gesteuert. Dringende und sicherheitsrelevante Änderungen sind uneinheitlich geregelt.",
+        "2": "Change-Management ist für zentrale Änderungen definiert. Sicherheitsrelevante Änderungen werden teilweise gesondert bewertet.",
+        "3": "Reguläre, dringende und sicherheitsrelevante Änderungen werden breit nach definiertem Prozess gesteuert und dokumentiert.",
+        "4": "Change-Management ist integriert, risikobasiert und soweit sinnvoll automatisiert. Änderungen werden kontinuierlich überwacht und verbessert."
+      },
+      "implementationBarriers": "Change-Management wird erschwert, wenn Änderungen ausserhalb definierter Prozesse erfolgen oder Sicherheitsprüfungen nicht verbindlich im Change-Prozess verankert sind.",
+      "barrierReduction": "Security-Checks in Change-Vorlagen aufnehmen, Notfalländerungen nachgelagert prüfen und Ausnahmen mit klarer Verantwortlichkeit dokumentieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Change-Arten, Notfalländerungen und sicherheitsrelevante Änderungen unterscheiden. Erste Sicherheitsprüfung und Dokumentation für priorisierte Änderungen einführen.",
+        "2": "Change-Prozess, Prüfpunkte und Freigaben für reguläre, dringende und sicherheitsrelevante Änderungen definieren. Ausnahmen nachvollziehbar regeln.",
+        "3": "Change-Management breit mit Sicherheits-, Betriebs- und Compliance-Prüfungen verbinden. Ungeplante Änderungen und Abweichungen regelmässig analysieren.",
+        "4": "Change-Prozess kontinuierlich verbessern. Automatisierte Compliance-Prüfungen, Risikoindikatoren und Lessons Learned in Freigaben einbeziehen."
+      }
+    },
+    {
+      "id": "K7-04",
+      "areaId": "governance",
+      "question": "Sind im Change-Management Zuständigkeiten und Verantwortlichkeiten für Antrag, Bewilligung, Umsetzung und Kontrolle von Änderungen klar geregelt?",
+      "weight": 1,
+      "socioTechnical": [
+        "organizational",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app",
+        "kunde_mandant"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Zuständigkeiten für Antrag, Bewilligung, Umsetzung und Kontrolle von Änderungen sind nicht geregelt.",
+        "1": "Zuständigkeiten bestehen punktuell. Rollen, Freigaben und Kontrollen sind uneinheitlich oder personengebunden.",
+        "2": "Rollen und Verantwortlichkeiten im Change-Management sind für zentrale Änderungen definiert. Nachweise werden teilweise geführt.",
+        "3": "Zuständigkeiten sind breit etabliert und nachvollziehbar. Antrag, Bewilligung, Umsetzung und Kontrolle sind sauber getrennt.",
+        "4": "Verantwortlichkeiten werden kontinuierlich überprüft und durch Workflows unterstützt. Interessenkonflikte und Freigaberisiken werden aktiv gesteuert."
+      },
+      "implementationBarriers": "Unklare Zuständigkeiten zwischen Antrag, Bewilligung, Umsetzung und Kontrolle führen dazu, dass sich niemand durchgehend verantwortlich fühlt.",
+      "barrierReduction": "RACI oder vergleichbare Verantwortlichkeitsmodelle definieren und Rollen in Change-, Sicherheits- und Betriebsprozessen verbindlich verankern.",
+      "recommendationsByTargetLevel": {
+        "1": "Rollen für Antrag, Bewilligung, Umsetzung und Kontrolle von Änderungen festlegen. Verantwortungsübergaben für kritische Changes dokumentieren.",
+        "2": "Zuständigkeiten und Verantwortlichkeiten im Change-Management verbindlich definieren. RACI, Eskalation und Kontrollpunkte für zentrale Änderungstypen festlegen.",
+        "3": "Change-Verantwortlichkeiten breit in Betriebs- und Sicherheitsprozesse integrieren. Einhaltung der Rollen und Kontrollpflichten regelmässig überprüfen.",
+        "4": "Verantwortlichkeiten im Change-Management kontinuierlich verbessern. Automatisierte Workflows, Eskalationen und Kontrollnachweise gezielt nutzen."
+      }
+    },
+    {
+      "id": "K7-05",
+      "areaId": "governance",
+      "question": "Werden Assets in einem aktuellen Inventar oder einer CMDB geführt und soweit möglich automatisiert gepflegt?",
+      "weight": 3,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Assets werden nicht in einem aktuellen Inventar oder einer CMDB geführt.",
+        "1": "Ein Asset-Inventar besteht punktuell. Pflege erfolgt manuell und ist oft unvollständig.",
+        "2": "Ein Inventar oder eine CMDB ist für zentrale Asset-Klassen definiert. Pflege erfolgt teilweise standardisiert.",
+        "3": "Assets sind breit inventarisiert und mit Verantwortlichkeiten, Kritikalität oder Betriebsinformationen verknüpft.",
+        "4": "Asset-Daten werden weitgehend automatisiert gepflegt, validiert und mit Betriebs-, Sicherheits- und Risikoprozessen integriert."
+      },
+      "implementationBarriers": "Asset-Inventare bleiben unvollständig, wenn Datenquellen nicht integriert sind und Änderungen nicht automatisiert aus Verwaltungssystemen gepflegt werden.",
+      "barrierReduction": "Inventarquellen integrieren, automatische Datenpflege aus Managementsystemen nutzen und fachliche Verantwortliche für Datenqualität festlegen.",
+      "recommendationsByTargetLevel": {
+        "1": "Kritische Asset-Klassen und Datenquellen festlegen. Erste Assets in Inventar oder CMDB erfassen und Verantwortliche benennen.",
+        "2": "Inventar- oder CMDB-Pflege für zentrale Assets definieren. Datenquellen, Pflichtfelder und Aktualisierungsprozesse verbindlich regeln.",
+        "3": "Asset-Daten breit aus Verwaltungs-, Discovery- und Betriebswerkzeugen zusammenführen. Qualität und Aktualität regelmässig überprüfen.",
+        "4": "Asset-Inventar soweit möglich automatisiert pflegen. Discovery, Verwaltungssysteme, CMDB und Abweichungsbehandlung kontinuierlich verbinden."
+      }
+    },
+    {
+      "id": "K7-06",
+      "areaId": "governance",
+      "question": "Werden Schwachstellen und fehlende Sicherheitsupdates auf Basis eines aktuellen Asset-Inventars erkannt, risikobasiert priorisiert und innerhalb definierter Fristen behoben?",
+      "weight": 3,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Schwachstellen und fehlende Sicherheitsupdates werden nicht systematisch erkannt oder behoben.",
+        "1": "Vulnerability- und Patch-Management erfolgt punktuell. Priorisierung und Fristen sind uneinheitlich.",
+        "2": "Schwachstellenmanagement und Patch-Fristen sind für zentrale Asset-Klassen definiert. Priorisierung nutzt teilweise Kritikalität oder Risiko.",
+        "3": "Schwachstellen und Updates werden breit erkannt, priorisiert und innerhalb definierter Fristen bearbeitet.",
+        "4": "Vulnerability- und Patch-Management ist kontinuierlich, risikobasiert und soweit sinnvoll automatisiert. Fortschritt und Ausnahmen werden laufend überwacht."
+      },
+      "implementationBarriers": "Schwachstellenmanagement leidet unter unvollständigen Inventaren, Patchfenstern, Priorisierungskonflikten und begrenzten Betriebsressourcen.",
+      "barrierReduction": "Schwachstellen nach Kritikalität und Exposition priorisieren, Patchfenster planen und Ausnahmen mit Risikoakzeptanz sowie Fristen versehen.",
+      "recommendationsByTargetLevel": {
+        "1": "Kritische Assets und bekannte Schwachstellenquellen festlegen. Erste risikobasierte Behebungsfristen und Verantwortlichkeiten definieren.",
+        "2": "Vulnerability- und Patch-Prozesse für zentrale Asset-Klassen definieren. Kritikalität, Pilotierung und Behebungsfristen verbindlich regeln.",
+        "3": "Schwachstellen und Updates breit auf Basis aktueller Asset-Daten priorisieren. Behebung, Ausnahmen und Nachweise regelmässig verfolgen.",
+        "4": "Schwachstellenmanagement kontinuierlich optimieren. Automatisierte Erkennung, Priorisierung, Patch-Orchestrierung und Wirksamkeitskontrolle verbinden."
+      }
+    },
+    {
+      "id": "K7-07",
+      "areaId": "governance",
+      "question": "Werden Systeme nach definierten Sicherheits- und Härtungsbaselines konfiguriert und regelmässig auf Abweichungen geprüft?",
+      "weight": 3,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Systeme werden nicht nach definierten Sicherheits- oder Härtungsbaselines konfiguriert.",
+        "1": "Hardening erfolgt punktuell, etwa anhand einzelner Checklisten oder Herstellerempfehlungen.",
+        "2": "Sicherheits- und Härtungsbaselines sind für zentrale Systemtypen definiert. Prüfungen auf Abweichungen erfolgen teilweise.",
+        "3": "Systeme werden breit nach Baselines wie CIS Benchmarks, Hersteller-Baselines oder internen Standards gehärtet und regelmässig geprüft.",
+        "4": "Hardening-Compliance wird kontinuierlich überwacht und automatisiert unterstützt. Abweichungen werden priorisiert und zeitnah behoben."
+      },
+      "implementationBarriers": "Härtungsbaselines erfordern Standardisierung, Ausnahmemanagement und regelmässige Prüfungen. Legacy- oder Spezialsoftware erschwert einheitliche Vorgaben.",
+      "barrierReduction": "Härtungsstandards definieren, Ausnahmen dokumentieren und Compliance-Prüfungen automatisieren. Kritische Systeme zuerst standardisieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Sicherheits- und Härtungsbaselines für priorisierte Systeme festlegen. Erste Konfigurationen nach anerkannten Vorgaben wie CIS oder Hersteller-Benchmarks prüfen.",
+        "2": "Baselines für zentrale Systemklassen definieren. Abweichungen, Ausnahmen und Freigaben verbindlich dokumentieren und regelmässig prüfen.",
+        "3": "Härtungsbaselines breit über Server, Clients und Infrastrukturkomponenten ausrollen. Konfigurationsabweichungen überwachen und risikobasiert bereinigen.",
+        "4": "Baseline-Compliance kontinuierlich und möglichst automatisiert prüfen. Neue Anforderungen, Schwachstellen und Betriebserfahrungen in Baselines einarbeiten."
+      }
+    },
+    {
+      "id": "K7-08",
+      "areaId": "governance",
+      "question": "Ist für Cloud-Architekturen eine Cloud-Governance beziehungsweise Cloud Foundation etabliert, in der Risiken, Schutzanforderungen und Basisservices geregelt sind?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app",
+        "kunde_mandant"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Für Cloud-Architekturen besteht keine Cloud-Governance oder Cloud Foundation.",
+        "1": "Cloud-Vorgaben bestehen punktuell. Risiken, Schutzanforderungen und Basisservices sind uneinheitlich geregelt.",
+        "2": "Cloud-Governance oder Cloud Foundation ist für zentrale Plattformen definiert. Basisservices und Risiken sind teilweise geregelt.",
+        "3": "Cloud-Architekturen folgen breit einer Cloud Foundation, etwa mit Landing Zones, IAM, Netzwerk, Logging und Policy-Vorgaben.",
+        "4": "Cloud-Governance wird kontinuierlich verbessert und automatisiert durchgesetzt. Risiken, Basisservices und Policies werden dynamisch gesteuert."
+      },
+      "implementationBarriers": "Cloud Governance benötigt klare Landing-Zones, Verantwortlichkeiten und Kostenkontrolle über mehrere Cloud-Dienste hinweg.",
+      "barrierReduction": "Cloud Foundation oder Landing-Zone definieren, Verantwortlichkeiten festlegen und Sicherheits- sowie Kostenkontrollen zentral verankern.",
+      "recommendationsByTargetLevel": {
+        "1": "Cloud-Nutzung, Risiken und zentrale Basisservices erfassen. Erste Cloud-Governance-Vorgaben für priorisierte Plattformen oder Tenants festlegen.",
+        "2": "Cloud Foundation, Rollen, Landing Zones und Basisservices für zentrale Cloud-Umgebungen definieren. Sicherheits- und Betriebsanforderungen verbindlich regeln.",
+        "3": "Cloud Governance breit über Services, Plattformen und Mandanten anwenden. Compliance, Kosten, Risiken und Ausnahmen regelmässig überprüfen.",
+        "4": "Cloud-Governance kontinuierlich verbessern. Policy-as-Code, automatisierte Kontrollen und Plattform-Standards dynamisch weiterentwickeln."
+      }
+    },
+    {
+      "id": "K7-09",
+      "areaId": "governance",
+      "question": "Werden sicherheitsrelevante Konfigurationen durch IaC, CaC oder vergleichbare Automatisierungsansätze verwaltet und auf Compliance geprüft?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Sicherheitsrelevante Konfigurationen werden nicht über IaC, CaC oder vergleichbare Ansätze verwaltet oder geprüft.",
+        "1": "Automatisierung besteht punktuell. Konfigurationen werden teilweise manuell gepflegt und unregelmässig überprüft.",
+        "2": "IaC, CaC oder vergleichbare Ansätze sind für zentrale Konfigurationen definiert. Compliance-Prüfungen erfolgen teilweise automatisiert.",
+        "3": "Sicherheitsrelevante Konfigurationen werden breit versioniert, automatisiert ausgerollt und regelmässig auf Compliance geprüft.",
+        "4": "Konfigurationsmanagement ist kontinuierlich, automatisiert und in CI/CD- oder Governance-Prozesse integriert. Abweichungen werden automatisch erkannt."
+      },
+      "implementationBarriers": "IaC und CaC verlangen Automatisierungskompetenz, Versionskontrolle und neue Freigabeprozesse für sicherheitsrelevante Konfigurationen.",
+      "barrierReduction": "Automatisierungsstandards festlegen, Versionskontrolle einsetzen und sicherheitsrelevante Konfigurationsänderungen über Reviews und Pipelines steuern.",
+      "recommendationsByTargetLevel": {
+        "1": "Sicherheitsrelevante Konfigurationen priorisieren und erste IaC-, CaC- oder Skriptansätze für kontrollierte Änderungen einsetzen.",
+        "2": "IaC- oder CaC-Vorgaben für zentrale Konfigurationen definieren. Review, Freigabe, Versionierung und Compliance-Prüfung verbindlich regeln.",
+        "3": "Konfigurationen breit über automatisierte Ansätze verwalten und prüfen. Abweichungen mit Change-, Compliance- und Incident-Prozessen verbinden.",
+        "4": "Konfigurationsmanagement kontinuierlich automatisieren. Drift-Erkennung, Policy-as-Code und automatische Compliance-Prüfungen in den Betrieb integrieren."
+      }
+    },
+    {
+      "id": "K7-10",
+      "areaId": "governance",
+      "question": "Wird der Zugriff auf zentrale Management-, Konfigurations- und Asset-Management-Systeme auf autorisierte Administrationsumgebungen beschränkt und durch starke Authentisierung sowie Least-Privilege-Kontrollen abgesichert?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Zugriff auf zentrale Management-, Konfigurations- und Asset-Management-Systeme ist nicht besonders abgesichert.",
+        "1": "Zugriffsbeschränkungen bestehen punktuell. Managementstationen, MFA oder Least Privilege werden uneinheitlich genutzt.",
+        "2": "Autorisierte Administrationsumgebungen, starke Authentisierung und Least Privilege sind für zentrale Managementsysteme definiert.",
+        "3": "Zugriffe auf zentrale Managementsysteme sind breit auf PAW/SAW oder vergleichbare Umgebungen beschränkt und nachvollziehbar kontrolliert.",
+        "4": "Managementzugriffe werden kontinuierlich überwacht, risikobasiert gesteuert und soweit sinnvoll automatisiert eingeschränkt."
+      },
+      "implementationBarriers": "Managementzugänge erfordern spezielle Administrationsarbeitsplätze, MFA und strikte Betriebsprozesse. Akzeptanz und Legacy-Zugänge erschweren die Umsetzung.",
+      "barrierReduction": "Managementzugänge priorisieren, PAW- oder SAW-Nutzung pilotieren und Legacy-Zugänge mit Übergangsregeln abbauen.",
+      "recommendationsByTargetLevel": {
+        "1": "Zentrale Management- und Konfigurationssysteme identifizieren. Erste Administrationsumgebungen, MFA und Least-Privilege-Regeln für kritische Zugriffe festlegen.",
+        "2": "Zugriffsregeln für Management-, Konfigurations- und Asset-Systeme definieren. PAW/SAW, starke Authentisierung und Rollenmodelle verbindlich regeln.",
+        "3": "Managementzugriffe breit auf autorisierte Administrationsumgebungen beschränken. Sitzungen, privilegierte Aktionen und Ausnahmen regelmässig kontrollieren.",
+        "4": "Managementzugriffe dynamisch und risikobasiert absichern. Starke Authentisierung, Least Privilege, Session-Kontrolle und Monitoring kontinuierlich verbessern."
+      }
+    },
+    {
+      "id": "K7-11",
+      "areaId": "governance",
+      "question": "Werden Mitarbeitende beim Eintritt sowie regelmässig und rollen- oder risikobasiert zu Informationssicherheit geschult?",
+      "weight": 1,
+      "socioTechnical": [
+        "organizational",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "kunde_mandant"
+      ],
+      "explanation": "Für den gewählten Geltungsbereich ist dieses Bewertungskriterium nicht relevant.",
+      "levelDescriptions": {
+        "0": "Mitarbeitende werden beim Eintritt oder regelmässig nicht zu Informationssicherheit geschult.",
+        "1": "Schulungen erfolgen punktuell oder freiwillig. Rollen- und Risikobezug sind uneinheitlich.",
+        "2": "Schulungsprogramm ist für Mitarbeitende definiert. Eintrittsschulung und regelmässige Wiederholungen sind teilweise umgesetzt.",
+        "3": "Schulungen sind breit verpflichtend, rollen- oder risikobasiert und werden nachvollziehbar dokumentiert.",
+        "4": "Schulungen werden kontinuierlich anhand Risiken, Vorfällen und Lernergebnissen angepasst. Wirksamkeit wird gemessen und verbessert."
+      },
+      "implementationBarriers": "Schulungen verlieren Wirkung, wenn Inhalte generisch sind, Rollenbezug fehlt oder Kundenorganisationen nicht eingebunden werden.",
+      "barrierReduction": "Rollenbezogene Schulungen entwickeln, Kundennutzende einbeziehen und Inhalte regelmässig anhand realer Vorfälle aktualisieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Eintrittsschulungen und wiederkehrende Basisschulungen für priorisierte Rollen festlegen. Inhalte auf zentrale Sicherheitsrisiken und Kundenkontext ausrichten.",
+        "2": "Schulungskonzept, Zielgruppen, Frequenz und Nachweise definieren. Rollen- und risikobasierte Inhalte für zentrale Nutzergruppen etablieren.",
+        "3": "Schulungen breit über Mitarbeitende, relevante Rollen und Kundennutzende ausrollen. Teilnahme, Verständnis und Wirksamkeit regelmässig überprüfen.",
+        "4": "Schulungsprogramm kontinuierlich datenbasiert verbessern. Inhalte anhand Vorfällen, Bedrohungslage, Rollenrisiken und Feedback aktualisieren."
+      }
+    },
+    {
+      "id": "K7-12",
+      "areaId": "governance",
+      "question": "Werden Mitarbeitende im Arbeitsalltag durch geeignete Awareness-Massnahmen und technische Hinweise auf Sicherheitsrisiken aufmerksam gemacht?",
+      "weight": 1,
+      "socioTechnical": [
+        "technical",
+        "organizational",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "kunde_mandant"
+      ],
+      "explanation": "Für den gewählten Geltungsbereich ist dieses Bewertungskriterium nicht relevant.",
+      "levelDescriptions": {
+        "0": "Mitarbeitende werden im Arbeitsalltag nicht durch Awareness-Massnahmen oder technische Hinweise unterstützt.",
+        "1": "Awareness-Massnahmen bestehen punktuell, etwa Kampagnen oder Warnhinweise. Nutzung und Wirkung sind uneinheitlich.",
+        "2": "Awareness-Massnahmen und technische Hinweise sind für zentrale Risiken definiert. Beispiele sind Phishing-Hinweise oder Warnungen bei externen E-Mails.",
+        "3": "Awareness ist breit im Arbeitsalltag verankert. Hinweise, Kampagnen und Kommunikation unterstützen sicherheitsbewusstes Verhalten regelmässig.",
+        "4": "Awareness-Massnahmen werden kontinuierlich und datenbasiert optimiert. Technische Hinweise sind kontextbezogen und wirksamkeitsorientiert gestaltet."
+      },
+      "implementationBarriers": "Awareness im Alltag scheitert an Sicherheitsmüdigkeit, unpassenden Hinweisen und fehlender Verknüpfung mit konkreten Arbeitssituationen.",
+      "barrierReduction": "Awareness in konkrete Arbeitsabläufe einbetten, kurze Hinweise nutzen und Sicherheitsmüdigkeit durch zielgruppengerechte Kommunikation reduzieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Geeignete Awareness-Formate und technische Hinweise für zentrale Risiken festlegen. Erste zielgruppengerechte Massnahmen in Arbeitsabläufe einbinden.",
+        "2": "Awareness-Massnahmen und Hinweise für zentrale Arbeitssituationen definieren. Kommunikationsregeln, Verantwortlichkeiten und Frequenz verbindlich festlegen.",
+        "3": "Awareness breit in den Arbeitsalltag integrieren. Hinweise, Kampagnen und Rückmeldungen regelmässig prüfen und auf Sicherheitsmüdigkeit achten.",
+        "4": "Awareness-Massnahmen kontinuierlich und datenbasiert optimieren. Hinweise kontextbezogen ausspielen und Nutzerfeedback systematisch berücksichtigen."
+      }
+    },
+    {
+      "id": "K7-13",
+      "areaId": "governance",
+      "question": "Werden Awareness- und Schulungsinhalte anhand von Tool-Daten, Sicherheitsvorfällen und aktuellen Bedrohungslagen gezielt angepasst?",
+      "weight": 1,
+      "socioTechnical": [
+        "technical",
+        "organizational",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation"
+      ],
+      "explanation": "Für den gewählten Geltungsbereich ist dieses Bewertungskriterium nicht relevant.",
+      "levelDescriptions": {
+        "0": "Awareness- und Schulungsinhalte werden nicht anhand von Daten, Vorfällen oder Bedrohungslagen angepasst.",
+        "1": "Anpassungen erfolgen punktuell oder reaktiv. Tool-Daten und Vorfälle werden kaum systematisch genutzt.",
+        "2": "Quellen für Anpassungen sind definiert. Einzelne Tool-Daten, Vorfälle oder Bedrohungsinformationen fliessen in Schulungsinhalte ein.",
+        "3": "Schulungs- und Awareness-Inhalte werden regelmässig anhand von Daten, Vorfällen und aktuellen Bedrohungen aktualisiert.",
+        "4": "Inhalte werden kontinuierlich und evidenzbasiert optimiert. Wirksamkeitsmessung, Bedrohungsinformationen und Tool-Daten steuern die Anpassung."
+      },
+      "implementationBarriers": "Datenbasierte Anpassung von Schulungsinhalten benötigt verwertbare Tool-Daten, Feedbackprozesse und Datenschutzabklärungen.",
+      "barrierReduction": "Schulungsmetriken, Feedbackkanäle und Datenschutzgrenzen definieren. Inhalte anhand Vorfällen, Phishing-Resultaten und Nutzerfeedback weiterentwickeln.",
+      "recommendationsByTargetLevel": {
+        "1": "Schulungsmetriken, Feedbackkanäle und relevante Vorfallsdaten festlegen. Erste Inhalte anhand konkreter Ereignisse oder Phishing-Resultate anpassen.",
+        "2": "Datenquellen und Datenschutzgrenzen für die Anpassung von Schulungen definieren. Inhalte regelmässig anhand zentraler Risiken aktualisieren.",
+        "3": "Awareness- und Schulungsinhalte breit anhand Tool-Daten, Sicherheitsvorfällen und Bedrohungslage weiterentwickeln. Wirkung und Relevanz regelmässig überprüfen.",
+        "4": "Inhalte kontinuierlich evidenzbasiert optimieren. Automatisierte Auswertungen, Lernpfade und Lessons Learned gezielt in Schulungsprogramme übernehmen."
+      }
+    },
+    {
+      "id": "K7-14",
+      "areaId": "governance",
+      "question": "Werden Security Champions oder vergleichbare Ansprechpersonen eingesetzt, um Sicherheitsbewusstsein in den Fachbereichen zu verankern?",
+      "weight": 1,
+      "socioTechnical": [
+        "organizational",
+        "human"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "kunde_mandant"
+      ],
+      "explanation": "Für den gewählten Geltungsbereich ist dieses Bewertungskriterium nicht relevant.",
+      "levelDescriptions": {
+        "0": "Security Champions oder vergleichbare Ansprechpersonen sind nicht etabliert.",
+        "1": "Einzelne Ansprechpersonen bestehen informell. Rollen, Aufgaben und Austausch sind uneinheitlich.",
+        "2": "Security-Champion-Rollen oder vergleichbare Ansprechpersonen sind für ausgewählte Bereiche definiert.",
+        "3": "Security Champions sind breit in Fachbereichen verankert. Austausch, Aufgaben und Unterstützung sind regelmässig organisiert.",
+        "4": "Das Champion-Netzwerk wird kontinuierlich weiterentwickelt. Wirkung, Beteiligung und Feedback steuern Verbesserungen im Sicherheitsbewusstsein."
+      },
+      "implementationBarriers": "Security Champions benötigen klare Rolle, Zeitbudget, Anerkennung und Unterstützung durch Führung, Fachbereiche und Kundenorganisationen.",
+      "barrierReduction": "Rolle, Zeitbudget und Eskalationswege für Security Champions festlegen. Führung und Kundenorganisationen aktiv einbinden.",
+      "recommendationsByTargetLevel": {
+        "1": "Geeignete Ansprechpersonen in priorisierten Fachbereichen benennen. Rolle, Zeitbudget und Eskalationswege für Security Champions klären.",
+        "2": "Security-Champion-Rollen, Aufgaben und Unterstützungsangebote für ausgewählte Bereiche definieren. Führung und Kundenorganisationen gezielt einbinden.",
+        "3": "Champion-Netzwerk breit in Fachbereichen und relevanten Kundenorganisationen verankern. Austausch, Schulung und Rückmeldungen regelmässig organisieren.",
+        "4": "Champion-Netzwerk kontinuierlich weiterentwickeln. Wirkung messen, Anerkennung sichern und Erkenntnisse systematisch in Awareness und Governance zurückführen."
+      }
+    },
+    {
+      "id": "K8-01",
+      "areaId": "supplychain",
+      "question": "Werden Sicherheitsanforderungen an Softwareanbieter definiert und über Beschaffung, Einführung und Betrieb hinweg überprüft?",
+      "weight": 3,
+      "socioTechnical": [
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Sicherheitsanforderungen an Softwareanbieter werden nicht definiert oder über den Lebenszyklus überprüft.",
+        "1": "Anforderungen werden punktuell in Beschaffung oder Projekten berücksichtigt. Betriebskontrollen sind uneinheitlich.",
+        "2": "Sicherheitsanforderungen an Softwareanbieter sind für zentrale Beschaffungen definiert. Einführung oder Betrieb werden teilweise überprüft.",
+        "3": "Anforderungen werden breit über Beschaffung, Einführung und Betrieb geprüft. Nachweise, Risiken und Abweichungen werden nachvollziehbar behandelt.",
+        "4": "Lieferanten- und Softwarerisiken werden kontinuierlich überwacht. Anforderungen, Nachweise und Kontrollen werden risikobasiert aktualisiert."
+      },
+      "implementationBarriers": "Sicherheitsanforderungen an Anbieter scheitern an fehlenden Vertragshebeln, Nachweisen und kontinuierlicher Kontrolle im Betrieb.",
+      "barrierReduction": "Sicherheitsanforderungen in Beschaffung und Verträge aufnehmen, Nachweise definieren und Lieferantenkontrollen risikobasiert wiederholen.",
+      "recommendationsByTargetLevel": {
+        "1": "Sicherheitsanforderungen für priorisierte Softwareanbieter festlegen. Erste Nachweise in Beschaffung oder Einführung einfordern und Verantwortlichkeiten klären.",
+        "2": "Sicherheitsanforderungen, Nachweise und Vertragsklauseln für zentrale Softwarebeschaffungen definieren. Betriebskontrollen und Lieferantenbewertung verbindlich regeln.",
+        "3": "Anbieteranforderungen breit über Beschaffung, Einführung und Betrieb überprüfen. Nachweise, Risiken und Abweichungen regelmässig nachverfolgen.",
+        "4": "Lieferanten- und Softwarerisiken kontinuierlich überwachen. Vertragsanforderungen, Nachweise und Kontrollen risikobasiert aktualisieren."
+      }
+    },
+    {
+      "id": "K8-02",
+      "areaId": "supplychain",
+      "question": "Wird Software aus vertrauenswürdigen Quellen bezogen und vor der Nutzung auf Integrität oder geeignete Vertrauensnachweise geprüft?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Software wird nicht systematisch aus vertrauenswürdigen Quellen bezogen oder auf Integrität geprüft.",
+        "1": "Vertrauensprüfung erfolgt punktuell, etwa durch manuelle Downloads, Zertifikate oder Herstellerangaben.",
+        "2": "Bezugsquellen und Integritätsprüfungen sind für zentrale Software definiert. Beispiele sind Signaturen, Hashes oder Herstellerzertifikate.",
+        "3": "Software wird breit aus vertrauenswürdigen Quellen bezogen. Integrität und Vertrauensnachweise werden regelmässig geprüft und dokumentiert.",
+        "4": "Softwarebezug wird kontinuierlich kontrolliert und soweit sinnvoll automatisiert. Integritätsprüfungen und Vertrauensnachweise sind in Prozesse integriert."
+      },
+      "implementationBarriers": "Vertrauenswürdige Softwarequellen und Integritätsnachweise sind schwer sicherzustellen, wenn Herkunft, Signaturen oder Zertifizierungen fehlen.",
+      "barrierReduction": "Freigegebene Bezugsquellen definieren, Signaturen und Integritätsprüfungen verlangen und Ausnahmen über Risikobewertung dokumentieren.",
+      "recommendationsByTargetLevel": {
+        "1": "Freigegebene Bezugsquellen für priorisierte Software festlegen. Erste Signatur-, Hash- oder Zertifikatsprüfungen für kritische Software einführen.",
+        "2": "Vertrauenswürdige Quellen und Integritätsprüfungen für zentrale Software definieren. Ausnahmen über Risikobewertung dokumentieren.",
+        "3": "Softwarebezug breit auf freigegebene Quellen und Integritätsnachweise stützen. Abweichungen, manuelle Downloads und Sonderfälle regelmässig prüfen.",
+        "4": "Softwarebezug kontinuierlich kontrollieren und soweit sinnvoll automatisieren. Integritätsnachweise, Zertifizierungen und Ausnahmen laufend überwachen."
+      }
+    },
+    {
+      "id": "K8-03",
+      "areaId": "supplychain",
+      "question": "Werden Quellcode, Softwareinventar und Softwareabhängigkeiten zentral verwaltet, auf bekannte Schwachstellen geprüft und bei Bedarf bereinigt?",
+      "weight": 2,
+      "socioTechnical": [
+        "technical",
+        "organizational"
+      ],
+      "appliesToScopes": [
+        "organisation",
+        "service_app"
+      ],
+      "explanation": "Hier wird eine Erläuterung pro Stufe angezeigt, sobald eine Auswahl erfolgt ist.",
+      "levelDescriptions": {
+        "0": "Quellcode, Softwareinventar und Abhängigkeiten werden nicht zentral verwaltet oder auf Schwachstellen geprüft.",
+        "1": "Verwaltung erfolgt punktuell, etwa in einzelnen Repositories oder Tools. Abhängigkeitsprüfungen sind uneinheitlich.",
+        "2": "Quellcode, Softwareinventar und Abhängigkeiten sind für zentrale Anwendungen definiert. Scans auf bekannte Schwachstellen erfolgen teilweise.",
+        "3": "Quellcode und Abhängigkeiten werden breit verwaltet, geprüft und bei Bedarf bereinigt. Findings werden priorisiert und nachverfolgt.",
+        "4": "Verwaltung und Prüfung erfolgen kontinuierlich und automatisiert, etwa über SBOM, Dependency-Scanning und CI/CD-Integration."
+      },
+      "implementationBarriers": "SBOM, Abhängigkeitsprüfung und Schwachstellenmanagement benötigen aktuelle Inventare, Toolintegration und Reaktion auf neue Findings.",
+      "barrierReduction": "SBOM-Anforderungen priorisieren, Dependency-Scanning in Entwicklungs- oder Beschaffungsprozesse integrieren und Findings in Vulnerability-Prozesse überführen.",
+      "recommendationsByTargetLevel": {
+        "1": "Quellcode, Softwareinventar und Abhängigkeiten für priorisierte Anwendungen erfassen. Erste Dependency-Scans oder SBOM-Anforderungen einführen.",
+        "2": "SBOM-, Inventar- und Schwachstellenprüfungen für zentrale Anwendungen definieren. Findings in Vulnerability- und Entwicklungsprozesse überführen.",
+        "3": "Quellcode, Abhängigkeiten und Softwareinventare breit verwalten und prüfen. Schwachstellen priorisieren und Behebung regelmässig nachverfolgen.",
+        "4": "Abhängigkeitsprüfung und SBOM-Pflege kontinuierlich automatisieren. CI/CD, Vulnerability Management und Lieferkettenkontrollen eng miteinander verbinden."
+      }
+    }
+  ]
+}
