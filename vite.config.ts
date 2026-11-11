@@ -9,10 +9,16 @@ export default defineConfig({
     sveltekit({
       compilerOptions: {
         runes: ({ filename }) =>
-          filename.split(/[/\\]/).includes('node_modules') ? undefined : true
+          filename.split(/[/\\]/).includes('node_modules')
+            ? undefined
+            : true
       },
-      adapter: adapter({ fallback: '404.html' }),
-      paths: { base }
+      adapter: adapter({
+        fallback: '404.html'
+      }),
+      paths: {
+        base
+      }
     })
   ]
 });
