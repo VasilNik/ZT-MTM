@@ -2,6 +2,7 @@
     import { catalog } from "../../lib/catalog";
     import { assessment, setAnswer } from "../../lib/stores/assessment.svelte";
     import AppHeader from "../../lib/components/AppHeader.svelte";
+    import { resolve } from '$app/paths';
 
     const orderedCriteria = $derived(
         catalog.areas
@@ -109,11 +110,11 @@
                 Bitte wähle zuerst auf der Einrichtungsseite einen
                 Geltungsbereich.
             </p>
-            <a href="/">← Zur Einrichtung</a>
+            <a href="{resolve('')}">← Zur Einrichtung</a>
         </main>
     {:else}
         <div class="top-actions">
-            <a href="/" class="btn-ghost sm">← Zur Startseite</a>
+            <a href="{resolve('')}" class="btn-ghost sm">← Zur Startseite</a>
         </div>
         <div class="progress">
             <div class="progress-head">
@@ -227,9 +228,9 @@
 						</button>
 						<div class="nav-right">
 							{#if currentIndex === total - 1}
-								<a href="/results" class="btn-primary">Auswertung ansehen</a>
+								<a href="{resolve('results')}" class="btn-primary">Auswertung ansehen</a>
 							{:else}
-								<a href="/results" class="btn-ghost">Auswertung ansehen</a>
+								<a href="{resolve('results')}" class="btn-ghost">Auswertung ansehen</a>
 								<button type="button" class="btn-primary" onclick={goNext}>
 									Weiter
 								</button>

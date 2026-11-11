@@ -3,6 +3,7 @@
     import { assessment } from "../../lib/stores/assessment.svelte";
     import { computeResult, stageLabel } from "../../lib/scoring";
     import AppHeader from "../../lib/components/AppHeader.svelte";
+    import { resolve } from '$app/paths';
 
     const result = $derived(
         computeResult(
@@ -32,10 +33,10 @@
                 Bitte wählen Sie zuerst einen Geltungsbereich und beantworten
                 Sie die Kriterien.
             </p>
-            <a href="/" class="btn-primary">Zur Einrichtung</a>
+            <a href="{resolve('')}" class="btn-primary">Zur Einrichtung</a>
         {:else}
             <div class="actions">
-                <a href="/assessment" class="btn-ghost">Bewertung bearbeiten</a>
+                <a href="{resolve('assessment')}" class="btn-ghost">Bewertung bearbeiten</a>
                 <button
                     type="button"
                     class="btn-ghost"

@@ -7,6 +7,7 @@
 		setTargetLevel,
 	} from "../lib/stores/assessment.svelte";
 	import AppHeader from "../lib/components/AppHeader.svelte";
+	import { resolve } from '$app/paths';
 
 	const shownCount = catalog.criteria.length;
 
@@ -85,7 +86,7 @@
 	<div class="cta">
 	<button type="button" class="btn-reset" onclick={handleReset}>Daten zurücksetzen</button>
 		{#if assessment.scopeId}
-			<a href="/assessment" class="btn-primary">
+			<a href="{resolve('assessment')}" class="btn-primary">
 				Assessment starten
 			</a>
 			<span class="cta-note">{relevantCount} Kriterien für diesen Geltungsbereich.</span>
