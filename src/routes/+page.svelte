@@ -2,6 +2,7 @@
 	import { catalog, targetLevels } from "../lib/catalog";
 	import {
 		assessment,
+		reset,
 		setScope,
 		setTargetLevel,
 	} from "../lib/stores/assessment.svelte";
@@ -14,6 +15,10 @@
 			? catalog.criteria.filter((c) => c.appliesToScopes.includes(assessment.scopeId!)).length
 			: 0
 	);
+
+	function handleReset() {
+		if (confirm('Alle Eingaben wirklich zurücksetzen?')) reset();
+	}
 </script>
 
 <svelte:head><title>ZT-MTM Einrichtung</title></svelte:head>
@@ -78,6 +83,7 @@
 		</section>
 
 	<div class="cta">
+	<button type="button" class="btn-reset" onclick={handleReset}>Daten zurücksetzen</button>
 		{#if assessment.scopeId}
 			<a href="/assessment" class="btn-primary">
 				Assessment starten
@@ -224,6 +230,20 @@
 	}
 	a.btn-primary {
 		text-decoration: none;
+	}
+	.btn-reset {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		background: var(--muted);
+		color: #fff;
+		font-weight: 600;
+		font-size: 16px;
+		padding: 16px 28px;
+		border: 0;
+		border-radius: var(--radius);
+		cursor: pointer;
+		font-family: inherit;
 	}
 	.cta-note {
 		font-size: 14px;

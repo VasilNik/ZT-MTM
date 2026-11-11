@@ -4,18 +4,18 @@
     import AppHeader from "../../lib/components/AppHeader.svelte";
 
     const orderedCriteria = $derived(
-		catalog.areas
-			.slice()
-			.sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-			.flatMap((area) =>
-				catalog.criteria.filter(
-					(c) =>
-						c.areaId === area.id &&
-						assessment.scopeId !== null &&
-						c.appliesToScopes.includes(assessment.scopeId)
-				)
-			)
-	);
+        catalog.areas
+            .slice()
+            .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+            .flatMap((area) =>
+                catalog.criteria.filter(
+                    (c) =>
+                        c.areaId === area.id &&
+                        assessment.scopeId !== null &&
+                        c.appliesToScopes.includes(assessment.scopeId),
+                ),
+            ),
+    );
 
     let currentIndex = $state(0);
 
@@ -51,6 +51,15 @@
                 ).length;
                 return [{ area, total: items.length, answered, firstIndex }];
             }),
+    );
+
+    const areaCriteria = $derived(
+        current
+            ? orderedCriteria.filter((c) => c.areaId === current.areaId)
+            : [],
+    );
+    const positionInArea = $derived(
+        current ? areaCriteria.findIndex((c) => c.id === current.id) + 1 : 0,
     );
 
     const chipColors = ["#cbd2dc", "#9db4e0", "#6e8fd4", "#3e66c8", "#1e40af"];
@@ -103,6 +112,9 @@
             <a href="/">← Zur Einrichtung</a>
         </main>
     {:else}
+        <div class="top-actions">
+            <a href="/" class="btn-ghost sm">← Zur Startseite</a>
+        </div>
         <div class="progress">
             <div class="progress-head">
                 <span>Fortschritt</span>
@@ -142,6 +154,10 @@
 
             <main class="main">
                 {#if current}
+                    <p class="crumb">
+                        {current.id} | {areaLabel} | Kriterium {positionInArea} von
+                        {areaCriteria.length}
+                    </p>
                     <h1 class="question">{current.question}</h1>
 
                     <div class="badges">
@@ -201,23 +217,25 @@
                     </div>
 
                     <div class="nav">
-                        <button
-                            type="button"
-                            class="btn-ghost"
-                            onclick={goPrev}
-                            disabled={currentIndex === 0}
-                        >
-                            Zurück
-                        </button>
-                        <button
-                            type="button"
-                            class="btn-primary"
-                            onclick={goNext}
-                            disabled={currentIndex === total - 1}
-                        >
-                            Weiter
-                        </button>
-                    </div>
+						<button
+							type="button"
+							class="btn-ghost"
+							onclick={goPrev}
+							disabled={currentIndex === 0}
+						>
+							Zurück
+						</button>
+						<div class="nav-right">
+							{#if currentIndex === total - 1}
+								<a href="/results" class="btn-primary">Auswertung ansehen</a>
+							{:else}
+								<a href="/results" class="btn-ghost">Auswertung ansehen</a>
+								<button type="button" class="btn-primary" onclick={goNext}>
+									Weiter
+								</button>
+							{/if}
+						</div>
+					</div>
                 {/if}
             </main>
         </div>
@@ -419,30 +437,45 @@
     .nav {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin-top: 28px;
         padding-top: 22px;
         border-top: 1px solid var(--border);
     }
+    .btn-ghost,
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        line-height: 1;
+        font-size: 15px;
+        font-family: inherit;
+        border-radius: var(--radius);
+        cursor: pointer;
+        text-decoration: none;
+    }
     .btn-ghost {
         background: none;
         border: 1px solid var(--border);
-        border-radius: var(--radius);
         padding: 12px 20px;
-        font-size: 15px;
-        font-family: inherit;
         color: var(--ink);
-        cursor: pointer;
     }
     .btn-primary {
         background: var(--primary);
         color: #fff;
         border: 0;
-        border-radius: var(--radius);
         padding: 12px 24px;
-        font-size: 15px;
         font-weight: 600;
-        font-family: inherit;
-        cursor: pointer;
+    }
+    .btn-ghost.sm {
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+    .top-actions {
+        display: flex;
+        gap: 10px;
+        padding-top: 16px;
     }
     .btn-ghost:disabled,
     .btn-primary:disabled {
@@ -451,5 +484,13 @@
     }
     h1 {
         margin: 0;
+    }
+    .crumb {
+        color: var(--primary);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin: 0 0 12px;
     }
 </style>
