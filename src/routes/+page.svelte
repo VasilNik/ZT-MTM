@@ -1,25 +1,24 @@
 <script lang="ts">
-	import { catalog, targetLevels } from "../lib/catalog";
+	import { resolve } from "$app/paths";
+	import { catalog, targetLevels, visibleCriteria } from "../lib/catalog";
 	import {
 		assessment,
-		reset,
-		setScope,
+		setProfile,
+		setBranche,
+		setFilter,
 		setTargetLevel,
 	} from "../lib/stores/assessment.svelte";
 	import AppHeader from "../lib/components/AppHeader.svelte";
-	import { resolve } from '$app/paths';
 
-	const shownCount = catalog.criteria.length;
-
-	const relevantCount = $derived(
-		assessment.scopeId
-			? catalog.criteria.filter((c) => c.appliesToScopes.includes(assessment.scopeId!)).length
-			: 0
+	const relevant = $derived(visibleCriteria(assessment.filters));
+	const total = $derived(relevant.length);
+	const answeredCount = $derived(
+		relevant.filter((c) => assessment.answers[c.id] !== undefined).length,
 	);
-
-	function handleReset() {
-		if (confirm('Alle Eingaben wirklich zurücksetzen?')) reset();
-	}
+	const selectedBranche = $derived(
+		catalog.branche.options.find((b) => b.name === assessment.branche) ??
+			null,
+	);
 </script>
 
 <svelte:head><title>ZT-MTM Einrichtung</title></svelte:head>
@@ -28,45 +27,109 @@
 	<AppHeader />
 
 	<main>
-		<p class="step">Schritt 1 von 4	Einrichtung</p>
+		<p class="step">Schritt 1 von 4 | Einrichtung</p>
 		<h1>Zero-Trust-Reifegrad Ihres Unternehmens bestimmen</h1>
 		<p class="lead">
-			Beantworten Sie bis zu {shownCount} Kriterien in {catalog.areas.length} Bereichen.
-			Sie erhalten Ihren Ist-Reifegrad, die Lücke zum Ziel und einen priorisierten
-			Transformationspfad.
+			Beantworten Sie ein kurzes Profil und die Filterfragen. Danach
+			bewerten Sie bis zu
+			{catalog.criteria.length} Kriterien in {catalog.areas.length} Bereichen
+			und erhalten Ihren Reifegrad samt Transformationspfad.
 		</p>
 
+		<div class="progress">
+			<div class="progress-head">
+				<span>Fortschritt</span>
+				<span class="mono">{answeredCount} / {total} Kriterien</span>
+			</div>
+			<div class="bar">
+				<div
+					class="fill"
+					style="width: {total ? (answeredCount / total) * 100 : 0}%"
+				></div>
+			</div>
+		</div>
+
 		<section class="card">
-			<h2>Geltungsbereich</h2>
+			<h2>Profil</h2>
 			<p class="hint">
-				Wählen Sie das Bewertungsobjekt. Nur die dafür relevanten
-				Kriterien werden abgefragt.
+				Kurzer Kontext zu Ihrem Unternehmen. Beeinflusst später den
+				Ziel-Vorschlag und die Empfehlungen.
 			</p>
-			<fieldset class="grid">
-				<legend class="sr-only">Geltungsbereich wählen</legend>
-				{#each catalog.scopes as scope (scope.id)}
-					<label
-						class="option"
-						class:selected={assessment.scopeId === scope.id}
-					>
-						<input
-							type="radio"
-							name="scope"
-							value={scope.id}
-							checked={assessment.scopeId === scope.id}
-							onchange={() => setScope(scope.id)}
-						/>
-						<span class="option-title">{scope.label}</span>
-					</label>
+			{#each catalog.profile as pq (pq.id)}
+				<div class="field">
+					<p class="q">{pq.question}</p>
+					<div class="opts">
+						{#each pq.options as opt (opt)}
+							<button
+								type="button"
+								class="opt"
+								class:selected={assessment.profile[pq.id] ===
+									opt}
+								onclick={() => setProfile(pq.id, opt)}
+								>{opt}</button
+							>
+						{/each}
+					</div>
+				</div>
+			{/each}
+		</section>
+
+		<section class="card">
+			<h2>Branche</h2>
+			<p class="hint">
+				{catalog.branche.question} Nur zur Information — zeigt typische Risiken,
+				ändert die Bewertung nicht.
+			</p>
+			<select
+				class="select"
+				value={assessment.branche ?? ""}
+				onchange={(e) => setBranche(e.currentTarget.value)}
+			>
+				<option value="" disabled>Bitte wählen …</option>
+				{#each catalog.branche.options as b (b.name)}
+					<option value={b.name}>{b.name}</option>
 				{/each}
-			</fieldset>
+			</select>
+			{#if selectedBranche?.risks}
+				<div class="info">
+					<strong>Typische Risiken:</strong>
+					{selectedBranche.risks}
+				</div>
+			{/if}
+		</section>
+
+		<section class="card">
+			<h2>Filterfragen</h2>
+			<p class="hint">
+				Trifft das auf Ihr Unternehmen zu? Bei „Nein" werden die
+				zugehörigen Kriterien ausgeblendet.
+			</p>
+			{#each catalog.filterQuestions as f (f.id)}
+				<div class="filter-row">
+					<span class="filter-q">{f.question}</span>
+					<div class="yesno">
+						<button
+							type="button"
+							class="yn"
+							class:selected={assessment.filters[f.id] === "ja"}
+							onclick={() => setFilter(f.id, "ja")}>Ja</button
+						>
+						<button
+							type="button"
+							class="yn"
+							class:selected={assessment.filters[f.id] === "nein"}
+							onclick={() => setFilter(f.id, "nein")}>Nein</button
+						>
+					</div>
+				</div>
+			{/each}
 		</section>
 
 		<section class="card">
 			<h2>Ziel-Reifegrad</h2>
 			<p class="hint">
-				Der angestrebte Zielzustand. Daraus wird die Reifegradlücke
-				berechnet.
+				Standard für KMU ist „grundlegend". Der angestrebte Zielzustand
+				bestimmt die Reifegradlücke.
 			</p>
 			<div class="segments">
 				{#each targetLevels as level (level.value)}
@@ -74,29 +137,19 @@
 						type="button"
 						class="segment"
 						class:selected={assessment.targetLevel === level.value}
-						aria-pressed={assessment.targetLevel === level.value}
 						onclick={() => setTargetLevel(level.value as number)}
+						>{level.value} {level.label}</button
 					>
-						{level.value} {level.label}
-					</button>
 				{/each}
 			</div>
 		</section>
 
-	<div class="cta">
-	<button type="button" class="btn-reset" onclick={handleReset}>Daten zurücksetzen</button>
-		{#if assessment.scopeId}
-			<a href="{resolve('assessment')}" class="btn-primary">
-				Assessment starten
-			</a>
-			<span class="cta-note">{relevantCount} Kriterien für diesen Geltungsbereich.</span>
-		{:else}
-			<button type="button" class="btn-primary" disabled>
-				Assessment starten
-			</button>
-			<span class="cta-note">Bitte zuerst einen Geltungsbereich wählen.</span>
-		{/if}
-	</div>
+		<div class="cta">
+			<a href={resolve("/assessment")} class="btn-primary"
+				>Assessment starten</a
+			>
+			<span class="cta-note">{total} Kriterien werden abgefragt.</span>
+		</div>
 	</main>
 </div>
 
@@ -125,8 +178,32 @@
 		font-size: 16px;
 		color: var(--muted);
 		max-width: 640px;
-		margin: 0 0 28px;
+		margin: 0 0 24px;
 	}
+
+	.progress {
+		margin-bottom: 24px;
+	}
+	.progress-head {
+		display: flex;
+		justify-content: space-between;
+		font-size: 13px;
+		color: var(--muted);
+		margin-bottom: 8px;
+	}
+	.bar {
+		height: 8px;
+		background: #edeff2;
+		border-radius: 999px;
+		overflow: hidden;
+	}
+	.fill {
+		height: 100%;
+		background: var(--primary);
+		border-radius: 999px;
+		transition: width 0.2s;
+	}
+
 	.card {
 		background: var(--surface);
 		border: 1px solid var(--border);
@@ -143,41 +220,107 @@
 		color: var(--muted);
 		margin: 0 0 18px;
 	}
-	.grid {
-		border: 0;
-		margin: 0;
-		padding: 0;
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 12px;
+
+	.field {
+		margin-bottom: 20px;
 	}
-	.option {
+	.field:last-child {
+		margin-bottom: 0;
+	}
+	.q {
+		font-size: 15px;
+		font-weight: 600;
+		margin: 0 0 10px;
+	}
+	.opts {
 		display: flex;
-		align-items: center;
-		gap: 12px;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.opt {
 		border: 1px solid var(--border);
+		background: var(--surface);
 		border-radius: var(--radius);
-		padding: 16px;
+		padding: 9px 14px;
+		font-size: 14px;
+		font-family: inherit;
+		color: var(--ink);
 		cursor: pointer;
 	}
-	.option:hover {
+	.opt:hover {
 		border-color: #c7d0dc;
 	}
-	.option.selected {
+	.opt.selected {
 		border: 2px solid var(--primary);
 		background: var(--primary-soft);
-		padding: 15px;
+		color: var(--primary);
+		font-weight: 600;
+		padding: 8px 13px;
 	}
-	.option input {
-		accent-color: var(--primary);
-		width: 18px;
-		height: 18px;
+
+	.select {
+		width: 100%;
+		padding: 12px 14px;
+		font-size: 15px;
+		font-family: inherit;
+		color: var(--ink);
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		cursor: pointer;
+	}
+	.info {
+		margin-top: 14px;
+		font-size: 14px;
+		line-height: 1.5;
+		background: var(--teal-soft);
+		border: 1px solid #cde6df;
+		border-radius: var(--radius);
+		padding: 14px 16px;
+		color: #1a3b35;
+	}
+
+	.filter-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		padding: 12px 0;
+		border-bottom: 1px solid var(--border);
+	}
+	.filter-row:last-child {
+		border-bottom: 0;
+		padding-bottom: 0;
+	}
+	.filter-q {
+		font-size: 14px;
+	}
+	.yesno {
+		display: flex;
+		gap: 8px;
 		flex: none;
 	}
-	.option-title {
-		font-weight: 600;
-		font-size: 15px;
+	.yn {
+		border: 1px solid var(--border);
+		background: var(--surface);
+		border-radius: var(--radius);
+		padding: 8px 18px;
+		font-size: 14px;
+		font-family: inherit;
+		color: var(--ink);
+		cursor: pointer;
 	}
+	.yn:hover {
+		border-color: #c7d0dc;
+	}
+	.yn.selected {
+		border: 2px solid var(--primary);
+		background: var(--primary-soft);
+		color: var(--primary);
+		font-weight: 600;
+		padding: 7px 17px;
+	}
+
 	.segments {
 		display: flex;
 		gap: 10px;
@@ -204,17 +347,16 @@
 		color: var(--primary);
 		font-weight: 600;
 	}
+
 	.cta {
 		display: flex;
 		align-items: center;
 		gap: 16px;
 		flex-wrap: wrap;
-		
 	}
 	.btn-primary {
 		display: inline-flex;
 		align-items: center;
-		gap: 10px;
 		background: var(--primary);
 		color: #fff;
 		font-weight: 600;
@@ -224,41 +366,10 @@
 		border-radius: var(--radius);
 		cursor: pointer;
 		font-family: inherit;
-	}
-	.btn-primary:disabled {
-		opacity: 0.45;
-		cursor: not-allowed;
-	}
-	a.btn-primary {
 		text-decoration: none;
-	}
-	.btn-reset {
-		display: inline-flex;
-		align-items: center;
-		gap: 10px;
-		background: var(--muted);
-		color: #fff;
-		font-weight: 600;
-		font-size: 16px;
-		padding: 16px 28px;
-		border: 0;
-		border-radius: var(--radius);
-		cursor: pointer;
-		font-family: inherit;
 	}
 	.cta-note {
 		font-size: 14px;
 		color: var(--muted);
-	}
-	.sr-only {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		padding: 0;
-		margin: -1px;
-		overflow: hidden;
-		clip: rect(0, 0, 0, 0);
-		white-space: nowrap;
-		border: 0;
 	}
 </style>

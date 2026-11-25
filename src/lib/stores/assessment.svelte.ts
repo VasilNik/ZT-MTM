@@ -1,13 +1,16 @@
-const STORAGE_KEY = 'zt-mtm-assessment';
+
+const STORAGE_KEY = 'zt-mtm-assessment-v04';
 
 interface AssessmentState {
-	scopeId: string | null;
+	profile: Record<string, string>;
+	branche: string | null;
+	filters: Record<string, 'ja' | 'nein'>;
 	targetLevel: number;
 	answers: Record<string, number | 'N/A'>;
 }
 
 function load(): AssessmentState {
-	const fb: AssessmentState = { scopeId: null, targetLevel: 3, answers: {} };
+	const fb: AssessmentState = { profile: {}, branche: null, filters: {}, targetLevel: 2, answers: {} };
 	try {
 		if (typeof localStorage === 'undefined') return fb;
 		const raw = localStorage.getItem(STORAGE_KEY);
@@ -27,24 +30,31 @@ function save() {
 	}
 }
 
-export function setScope(id: string) {
-	assessment.scopeId = id;
+export function setProfile(id: string, value: string) {
+	assessment.profile[id] = value;
 	save();
 }
-
+export function setBranche(value: string) {
+	assessment.branche = value;
+	save();
+}
+export function setFilter(id: string, value: 'ja' | 'nein') {
+	assessment.filters[id] = value;
+	save();
+}
 export function setTargetLevel(level: number) {
 	assessment.targetLevel = level;
 	save();
 }
-
 export function setAnswer(criterionId: string, value: number | 'N/A') {
 	assessment.answers[criterionId] = value;
 	save();
 }
-
 export function reset() {
-	assessment.scopeId = null;
-	assessment.targetLevel = 3;
+	assessment.profile = {};
+	assessment.branche = null;
+	assessment.filters = {};
+	assessment.targetLevel = 2;
 	assessment.answers = {};
 	save();
 }

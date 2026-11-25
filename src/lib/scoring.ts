@@ -1,4 +1,4 @@
-import { catalog, type Criterion, type Area } from './catalog';
+import { catalog, visibleCriteria, type Criterion, type Area } from './catalog';
 
 export type SocioKey = 'technical' | 'organizational' | 'human';
 
@@ -54,13 +54,11 @@ export interface AssessmentResult {
 }
 
 export function computeResult(
-	scopeId: string | null,
+	filters: Record<string, string>,
 	targetLevel: number,
 	answers: Record<string, number | 'N/A'>
 ): AssessmentResult {
-	const relevant = scopeId
-		? catalog.criteria.filter((c) => c.appliesToScopes.includes(scopeId))
-		: [];
+	const relevant = visibleCriteria(filters);
 
 	const results: CriterionResult[] = relevant.map((c) => {
 		const raw = answers[c.id];

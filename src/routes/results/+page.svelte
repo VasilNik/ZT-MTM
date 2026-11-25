@@ -1,20 +1,17 @@
 <script lang="ts">
-    import { catalog } from "../../lib/catalog";
     import { assessment } from "../../lib/stores/assessment.svelte";
     import { computeResult, stageLabel } from "../../lib/scoring";
     import AppHeader from "../../lib/components/AppHeader.svelte";
-    import { resolve } from '$app/paths';
+    import { resolve } from "$app/paths";
 
     const result = $derived(
         computeResult(
-            assessment.scopeId,
+            assessment.filters,
             assessment.targetLevel,
             assessment.answers,
         ),
     );
-    const scopeLabel = $derived(
-        catalog.scopes.find((s) => s.id === assessment.scopeId)?.label ?? "—",
-    );
+    const brancheLabel = $derived(assessment.branche ?? "");
 
     const fmt = (v: number | null) => (v === null ? "–" : v.toFixed(1));
     const pct = (v: number) => (v / 4) * 100;
@@ -26,27 +23,28 @@
     <AppHeader />
 
     <main>
-        {#if !assessment.scopeId}
+        {#if result.answered === 0}
             <p class="step">Dashboard</p>
             <h1>Noch keine Bewertung vorhanden</h1>
             <p class="lead">
                 Bitte wählen Sie zuerst einen Geltungsbereich und beantworten
                 Sie die Kriterien.
             </p>
-            <a href="{resolve('')}" class="btn-primary">Zur Einrichtung</a>
+            <a href={resolve("")} class="btn-primary">Zur Einrichtung</a>
         {:else}
             <div class="actions">
-                <a href="{resolve('assessment')}" class="btn-ghost">Bewertung bearbeiten</a>
-                <button
-                    type="button"
-                    class="btn-ghost"
-                    disabled
-                    title="Kommt in Schritt G">PDF-Report</button
-                >
+                <a href={resolve("/assessment")} class="btn-ghost"
+                    >← Assessment bearbeiten
+                </a>
+                <a href={resolve("/empfehlungen")} class="act"
+                    >Handlungsempfehlungen →
+                </a>
             </div>
 
-            <p class="step">Schritt 3 von 4 Dashboard</p>
-            <h1>Auswertung: {scopeLabel}</h1>
+            <p class="step">Schritt 3 von 4 | Dashboard</p>
+            <h1>
+                Auswertung{#if brancheLabel}: {brancheLabel}{/if}
+            </h1>
 
             <div class="kpis">
                 <div class="kpi">
@@ -57,7 +55,7 @@
                         >
                     </div>
                     <span class="kpi-sub amber"
-                        >Ziel {result.targetLevel.toFixed(1)} · Lücke {result.overallGap.toFixed(
+                        >Ziel {result.targetLevel.toFixed(1)} | Lücke {result.overallGap.toFixed(
                             1,
                         )}</span
                     >
@@ -393,5 +391,23 @@
     .btn-ghost:disabled {
         opacity: 0.5;
         cursor: not-allowed;
+    }
+    .act {
+        display: inline-flex;
+        align-items: center;
+        line-height: 1;
+        background: var(--primary);
+        color: #fff;
+        border: 0;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 10px 16px;
+        border-radius: var(--radius);
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .act:hover {
+        filter: brightness(1.08);
     }
 </style>

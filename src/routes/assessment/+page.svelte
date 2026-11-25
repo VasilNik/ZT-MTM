@@ -1,19 +1,16 @@
 <script lang="ts">
-    import { catalog } from "../../lib/catalog";
+    import { catalog, visibleCriteria } from "../../lib/catalog";
     import { assessment, setAnswer } from "../../lib/stores/assessment.svelte";
     import AppHeader from "../../lib/components/AppHeader.svelte";
-    import { resolve } from '$app/paths';
+    import { resolve } from "$app/paths";
 
     const orderedCriteria = $derived(
         catalog.areas
             .slice()
             .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
             .flatMap((area) =>
-                catalog.criteria.filter(
-                    (c) =>
-                        c.areaId === area.id &&
-                        assessment.scopeId !== null &&
-                        c.appliesToScopes.includes(assessment.scopeId),
+                visibleCriteria(assessment.filters).filter(
+                    (c) => c.areaId === area.id,
                 ),
             ),
     );
@@ -25,9 +22,6 @@
     const answeredCount = $derived(
         orderedCriteria.filter((c) => assessment.answers[c.id] !== undefined)
             .length,
-    );
-    const scopeLabel = $derived(
-        catalog.scopes.find((s) => s.id === assessment.scopeId)?.label ?? "",
     );
     const areaLabel = $derived(
         current
@@ -102,20 +96,17 @@
 <div class="page">
     <AppHeader />
 
-    {#if !assessment.scopeId}
+    {#if total === 0}
         <main class="guard">
-            <p class="step">Schritt 2 von 4 Assessment</p>
+            <p class="step">Schritt 2 von 4 | Assessment</p>
             <h1>Kein Geltungsbereich gewählt</h1>
             <p class="lead">
                 Bitte wähle zuerst auf der Einrichtungsseite einen
                 Geltungsbereich.
             </p>
-            <a href="{resolve('')}">← Zur Einrichtung</a>
+            <a href={resolve("")}>← Zur Einrichtung</a>
         </main>
     {:else}
-        <div class="top-actions">
-            <a href="{resolve('')}" class="btn-ghost sm">← Zur Startseite</a>
-        </div>
         <div class="progress">
             <div class="progress-head">
                 <span>Fortschritt</span>
@@ -217,7 +208,7 @@
                         </button>
                     </div>
 
-                    <div class="nav">
+					<div class="nav">
 						<button
 							type="button"
 							class="btn-ghost"
@@ -226,16 +217,19 @@
 						>
 							Zurück
 						</button>
-						<div class="nav-right">
-							{#if currentIndex === total - 1}
-								<a href="{resolve('results')}" class="btn-primary">Auswertung ansehen</a>
-							{:else}
-								<a href="{resolve('results')}" class="btn-ghost">Auswertung ansehen</a>
-								<button type="button" class="btn-primary" onclick={goNext}>
-									Weiter
-								</button>
-							{/if}
-						</div>
+						<button
+							type="button"
+							class="btn-ghost"
+							onclick={goNext}
+							disabled={currentIndex === total - 1}
+						>
+							Weiter
+						</button>
+					</div>
+
+					<div class="sub-nav">
+						<a href={resolve("/")} class="back-link">← Zur Startseite</a>
+						<a href={resolve("/results")} class="btn-primary">Auswertung ansehen →</a>
 					</div>
                 {/if}
             </main>
@@ -469,15 +463,28 @@
         padding: 12px 24px;
         font-weight: 600;
     }
-    .btn-ghost.sm {
-        padding: 8px 14px;
-        font-size: 14px;
-    }
-    .top-actions {
-        display: flex;
-        gap: 10px;
-        padding-top: 16px;
-    }
+	.sub-nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 18px;
+		padding-top: 18px;
+		border-top: 1px solid var(--border);
+	}
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		line-height: 1;
+		font-size: 14px;
+		color: var(--ink);
+		text-decoration: none;
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		padding: 10px 16px;
+	}
+	.back-link:hover {
+		border-color: #c7d0dc;
+	}
     .btn-ghost:disabled,
     .btn-primary:disabled {
         opacity: 0.45;
